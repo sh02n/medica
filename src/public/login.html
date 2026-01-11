@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login</title>
+  <link rel="stylesheet" href="/login.css" />
+</head>
+<body>
+  <header class="topbar">
+    <h1 class="brand">Customer Health Monitor</h1>
+    <a class="link" href="/register.html">Create account</a>
+  </header>
+
+  <main class="page">
+    <section class="card">
+      <h2>Welcome back</h2>
+      <p class="sub">Sign in to view customers, risk, and actions.</p>
+
+      <form id="loginForm" class="form">
+        <label>Email</label>
+        <input id="email" type="email" placeholder="mia.csm@example.com" required />
+
+        <label>Password</label>
+        <input id="password" type="password" placeholder="••••••••" required />
+
+        <button type="submit" class="btn primary">Login</button>
+      </form>
+
+      <p class="foot">
+        Don’t have an account? <a class="link" href="/register.html">Register</a>
+      </p>
+    </section>
+  </main>
+
+  <!-- Custom alert -->
+  <div id="customAlert" class="alert" style="display:none;">
+    <div class="alert-box">
+      <div class="alert-title" id="alertTitle">Message</div>
+      <div class="alert-message" id="alertMessage"></div>
+      <button id="alertCloseBtn" class="btn">OK</button>
+    </div>
+  </div>
+
+  <script src="/login.js"></script>
+</body>
+</html>

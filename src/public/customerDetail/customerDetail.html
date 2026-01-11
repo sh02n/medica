@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Customer Detail</title>
+  <link rel="stylesheet" href="customerDetail.css" />
+</head>
+<body>
+  <header class="topbar">
+    <button id="backBtn">← Back</button>
+    <h1 id="title">Customer</h1>
+    <div class="topbar-actions">
+      <button id="logoutBtn">Logout</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section id="fatigueBanner" class="banner" style="display:none;"></section>
+
+    <section class="card">
+      <h2>Summary</h2>
+      <div id="summaryGrid" class="grid"></div>
+    </section>
+
+    <section class="card">
+      <h2>Top Risk Drivers</h2>
+      <ul id="driversList"></ul>
+    </section>
+
+    <section class="card">
+      <div class="row">
+        <h2>Engagement Timeline</h2>
+        <button id="addEventBtn">+ Add Event</button>
+      </div>
+      <table class="table">
+        <thead><tr><th>Date</th><th>Type</th><th>Notes</th></tr></thead>
+        <tbody id="eventsTbody"></tbody>
+      </table>
+      <p id="eventsEmpty" class="muted" style="display:none;">No events yet.</p>
+    </section>
+
+    <section class="card">
+      <div class="row">
+        <h2>Actions</h2>
+        <button id="addActionBtn">+ Create Action</button>
+      </div>
+
+      <table class="table">
+        <thead><tr><th>Due</th><th>Type</th><th>Status</th><th>Priority</th><th>Outcome</th><th></th></tr></thead>
+        <tbody id="actionsTbody"></tbody>
+      </table>
+      <p id="actionsEmpty" class="muted" style="display:none;">No actions yet.</p>
+    </section>
+  </main>
+
+  <script src="/shared/api.js"></script>
+  <script src="customerDetail.js"></script>
+</body>
+</html>

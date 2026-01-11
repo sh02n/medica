@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Add Event</title>
+  <link rel="stylesheet" href="addEvent.css" />
+</head>
+<body>
+  <header class="topbar">
+    <button id="backBtn">← Back</button>
+    <h1>Add Event</h1>
+    <button id="logoutBtn">Logout</button>
+  </header>
+
+  <main class="card">
+    <label>Event Type</label>
+    <select id="type">
+      <option value="ACTIVITY">ACTIVITY</option>
+      <option value="POSITIVE">POSITIVE</option>
+      <option value="TICKET_OPENED">TICKET_OPENED</option>
+      <option value="TICKET_RESOLVED">TICKET_RESOLVED</option>
+      <option value="COMPLAINT">COMPLAINT</option>
+      <option value="OUTREACH_EMAIL">OUTREACH_EMAIL</option>
+      <option value="OUTREACH_CALL">OUTREACH_CALL</option>
+      <option value="UNSUBSCRIBE">UNSUBSCRIBE</option>
+    </select>
+
+    <label>Date/Time</label>
+    <input id="occurredAt" type="datetime-local" />
+
+    <label>Notes</label>
+    <textarea id="notes" rows="4"></textarea>
+
+    <button id="saveBtn">Save</button>
+    <p id="msg" class="muted"></p>
+  </main>
+
+  <script src="/shared/api.js"></script>
+  <script src="addEvent.js"></script>
+</body>
+</html>

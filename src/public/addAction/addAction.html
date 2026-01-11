@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Create Action</title>
+  <link rel="stylesheet" href="addAction.css" />
+</head>
+<body>
+  <header class="topbar">
+    <button id="backBtn">← Back</button>
+    <h1>Create Action</h1>
+    <button id="logoutBtn">Logout</button>
+  </header>
+
+  <main class="card">
+    <label>Action Type</label>
+    <select id="type">
+      <option value="CALL">CALL</option>
+      <option value="EMAIL">EMAIL</option>
+      <option value="OFFER_DISCOUNT">OFFER_DISCOUNT</option>
+      <option value="RESOLVE_TICKET">RESOLVE_TICKET</option>
+      <option value="ESCALATE">ESCALATE</option>
+    </select>
+
+    <label>Due Date</label>
+    <input id="dueDate" type="date" />
+
+    <label>Priority (1=High,2=Med,3=Low)</label>
+    <select id="priority">
+      <option value="1">1</option>
+      <option value="2" selected>2</option>
+      <option value="3">3</option>
+    </select>
+
+    <label>Notes</label>
+    <textarea id="notes" rows="4"></textarea>
+
+    <div id="warning" class="warn" style="display:none;"></div>
+
+    <button id="saveBtn">Create</button>
+  </main>
+
+  <script src="/shared/api.js"></script>
+  <script src="addAction.js"></script>
+</body>
+</html>

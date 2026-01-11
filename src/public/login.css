@@ -1,0 +1,116 @@
+:root {
+  --bg: #fafafa;
+  --card: #ffffff;
+  --border: #eaeaea;
+  --text: #111;
+  --muted: #666;
+  --primary: #111;
+  --shadow: 0 10px 30px rgba(0,0,0,0.06);
+  --radius: 14px;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 18px;
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+}
+
+.brand {
+  margin: 0;
+  font-size: 18px;
+  letter-spacing: 0.2px;
+}
+
+.link {
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 600;
+}
+.link:hover { text-decoration: underline; }
+
+.page {
+  min-height: calc(100vh - 56px);
+  display: grid;
+  place-items: center;
+  padding: 18px;
+}
+
+.card {
+  width: 100%;
+  max-width: 420px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 18px;
+}
+
+.card h2 { margin: 0 0 6px; }
+.sub { margin: 0 0 16px; color: var(--muted); }
+
+.form { display: flex; flex-direction: column; gap: 10px; }
+label { font-size: 12px; color: var(--muted); }
+
+input {
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  outline: none;
+}
+input:focus { border-color: #bbb; }
+
+.btn {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: #fff;
+  cursor: pointer;
+  font-weight: 700;
+}
+.btn.primary {
+  border: 1px solid #111;
+  background: #111;
+  color: #fff;
+}
+.btn.primary:hover { opacity: 0.92; }
+
+.foot { margin-top: 14px; color: var(--muted); font-size: 14px; }
+
+/* Custom alert */
+.alert {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+}
+.alert-box {
+  width: 100%;
+  max-width: 420px;
+  background: #fff;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  padding: 16px;
+}
+.alert-title {
+  font-weight: 900;
+  margin-bottom: 8px;
+}
+.alert-message {
+  color: var(--muted);
+  margin-bottom: 12px;
+}

@@ -1,0 +1,115 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  CSA
+  CSM
+}
+
+enum EventType {
+  ACTIVITY
+  POSITIVE
+  TICKET_OPENED
+  TICKET_RESOLVED
+  COMPLAINT
+  OUTREACH_EMAIL
+  OUTREACH_CALL
+  UNSUBSCRIBE
+}
+
+enum ActionType {
+  CALL
+  EMAIL
+  OFFER_DISCOUNT
+  RESOLVE_TICKET
+  ESCALATE
+}
+
+enum ActionStatus {
+  TODO
+  IN_PROGRESS
+  DONE
+}
+
+enum ActionOutcome {
+  IMPROVED
+  NO_RESPONSE
+  ISSUE_RESOLVED
+  NOT_IMPROVED
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  password  String
+  role      UserRole @default(CSA)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  customers Customer[] @relation("CustomerOwner")
+  actions   ActionItem[] @relation("ActionOwner")
+}
+
+model Customer {
+  id          Int      @id @default(autoincrement())
+  name        String
+  segment     String   @default("SMB")
+  tier        String   @default("Standard")
+  ownerId     Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  owner       User @relation("CustomerOwner", fields: [ownerId], references: [id])
+  events      EngagementEvent[]
+  actions     ActionItem[]
+
+  @@index([ownerId])
+  @@index([segment])
+}
+
+model EngagementEvent {
+  id          Int      @id @default(autoincrement())
+  customerId  Int
+  type        EventType
+  occurredAt  DateTime
+  notes       String?
+  createdAt   DateTime @default(now())
+
+  customer    Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+
+  @@index([customerId, occurredAt])
+  @@index([type])
+}
+
+model ActionItem {
+  id          Int          @id @default(autoincrement())
+  customerId  Int
+  ownerId     Int
+  type        ActionType
+  dueDate     DateTime
+  priority    Int          @default(2) // 1=High,2=Med,3=Low
+  status      ActionStatus @default(TODO)
+  notes       String?
+
+  outcome     ActionOutcome?
+  nextStep    String?
+  completedAt DateTime?
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  customer    Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  owner       User     @relation("ActionOwner", fields: [ownerId], references: [id])
+
+  @@index([customerId])
+  @@index([ownerId])
+  @@index([status, dueDate])
+}

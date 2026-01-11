@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Manager Dashboard</title>
+  <link rel="stylesheet" href="dashboard.css" />
+</head>
+<body>
+  <header class="topbar">
+    <button id="backBtn">← Back</button>
+    <h1>Manager Dashboard</h1>
+    <button id="logoutBtn">Logout</button>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h2>Risk Distribution</h2>
+      <pre id="riskBox"></pre>
+    </section>
+
+    <section class="card">
+      <h2>Fatigue Distribution</h2>
+      <pre id="fatigueBox"></pre>
+    </section>
+
+    <section class="card">
+      <h2>Top Risk Drivers</h2>
+      <table class="table">
+        <thead><tr><th>Driver</th><th>Count</th></tr></thead>
+        <tbody id="driversTbody"></tbody>
+      </table>
+    </section>
+
+    <section class="card">
+      <h2>Overdue Actions</h2>
+      <table class="table">
+        <thead><tr><th>Customer</th><th>Owner</th><th>Type</th><th>Due</th><th>Status</th></tr></thead>
+        <tbody id="overdueTbody"></tbody>
+      </table>
+    </section>
+  </main>
+
+  <script src="/shared/api.js"></script>
+  <script src="dashboard.js"></script>
+</body>
+</html>

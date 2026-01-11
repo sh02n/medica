@@ -1,0 +1,7 @@
+body { font-family: Arial, sans-serif; margin:0; background:#fafafa; }
+.topbar { display:flex; justify-content:space-between; align-items:center; padding:14px 18px; background:#fff; border-bottom:1px solid #e5e5e5; }
+.container { padding:18px; display:flex; flex-direction:column; gap:14px; }
+.card { background:#fff; border:1px solid #eee; border-radius:10px; padding:14px; }
+.table { width:100%; border-collapse: collapse; }
+.table th, .table td { padding:10px; border-bottom:1px solid #eee; text-align:left; }
+pre { background:#f6f6f6; padding:10px; border-radius:8px; }
