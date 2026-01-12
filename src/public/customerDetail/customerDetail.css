@@ -1,15 +1,156 @@
 body { font-family: Arial, sans-serif; margin:0; background:#fafafa; }
+
 .topbar { display:flex; align-items:center; gap:12px; padding:14px 18px; background:#fff; border-bottom:1px solid #e5e5e5; }
 .topbar h1 { flex:1; margin:0; }
-.container { padding: 18px; display:flex; flex-direction:column; gap:14px; }
+
+.container { padding:18px; display:flex; flex-direction:column; gap:14px; }
+
 .card { background:#fff; border:1px solid #eee; border-radius:10px; padding:14px; }
+
 .grid { display:grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap:10px; }
+
 .kpi { border:1px solid #eee; border-radius:10px; padding:10px; }
 .kpi .label { color:#666; font-size:12px; }
 .kpi .value { font-size:18px; font-weight:700; margin-top:6px; }
+
 .table { width:100%; border-collapse: collapse; }
 .table th, .table td { padding:10px; border-bottom:1px solid #eee; text-align:left; }
+
 .row { display:flex; justify-content:space-between; align-items:center; }
+
 .banner { padding:12px; border-radius:10px; background:#fff3cd; border:1px solid #ffeeba; }
+
 .muted { color:#666; }
-button { padding: 8px 10px; }
+
+button { padding:8px 10px; }
+
+/* ---------------- Modal ---------------- */
+.modal{
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  z-index: 9999;
+}
+
+.modal-card{
+  width: 100%;
+  max-width: 760px;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 18px;
+  padding: 18px;
+}
+
+.modal-header{
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.modal-body{
+  margin-top: 14px;
+  display:flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.modal-body label{
+  font-size: 12px;
+  color:#666;
+}
+
+.modal-body select,
+.modal-body textarea{
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 12px;
+  font-family: inherit;
+}
+
+.modal-footer{
+  margin-top: 14px;
+  display:flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding-top: 12px;
+  border-top: 1px solid #eee;
+}
+
+.btn{
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  background: #fff;
+  cursor: pointer;
+}
+.btn:hover{ background: #f7f7f7; }
+
+/* ---------------- Action detail sections ---------------- */
+.section { margin-top: 12px; }
+
+.section .label{
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 6px;
+}
+
+.box{
+  width: 100%;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  padding: 12px;
+  background: #fafafa;
+  min-height: 44px;
+}
+
+.notesList{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.noteItem{
+  border: 1px solid #eee;
+  border-radius: 10px;
+  padding: 10px;
+  background: #fff;
+}
+
+.noteMeta{
+  font-size: 12px;
+  color: #777;
+  margin-bottom: 6px;
+}
+
+/* Add update row */
+.updateRow{
+  display: flex;
+  gap: 12px;
+  align-items: flex-end;
+}
+
+.updateRow textarea{
+  flex: 1;
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 12px;
+  font-family: inherit;
+  resize: vertical;
+  min-height: 80px;
+}
+
+.updateRow button{
+  height: 44px;
+  white-space: nowrap;
+  padding: 10px 14px;
+  border-radius: 12px;
+}

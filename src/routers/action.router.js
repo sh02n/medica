@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const { listActionsByCustomer, createAction, updateAction } = require('../models/Action.model');
+const ActionModel = require("../models/Action.model");
+const ActionNoteModel = require("../models/ActionNote.model");
+
 const jwtMiddleware = require('../middlewares/jwtMiddleware');
 
 router.get('/customers/:id/actions', jwtMiddleware.verifyToken, async (req, res) => {
@@ -15,7 +18,7 @@ router.get('/customers/:id/actions', jwtMiddleware.verifyToken, async (req, res)
 
 router.post('/customers/:id/actions', jwtMiddleware.verifyToken, async (req, res) => {
   try {
-    const ownerId = req.user?.id; // depends on your jwtMiddleware setting req.user
+    const ownerId = res.locals.id; 
     const { type, dueDate, priority, status, notes } = req.body;
 
     if (!ownerId) return res.status(401).json({ error: 'Unauthenticated' });
@@ -42,6 +45,46 @@ router.patch('/actions/:id', jwtMiddleware.verifyToken, async (req, res) => {
   } catch (e) {
     console.error(e);
     res.status(500).json({ error: 'Failed to update action' });
+  }
+});
+
+
+router.get("/actions/:id", jwtMiddleware.verifyToken, async (req, res, next) => {
+  try {
+    const actionId = Number(req.params.id);
+
+    const action = await ActionModel.getActionDetail(actionId);
+    if (!action) return res.status(404).json({ error: "Action not found" });
+
+    // Optional security: only owner or manager can view
+    // if (res.locals.role === "CSA" && action.ownerId !== res.locals.id) {
+    //   return res.status(403).json({ error: "Forbidden" });
+    // }
+
+    res.json(action);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.post("/actions/:id/notes", jwtMiddleware.verifyToken, async (req, res, next) => {
+  try {
+    const actionId = Number(req.params.id);
+    const authorId = res.locals.id;
+    const { note } = req.body;
+
+    if (!note || !note.trim()) {
+      return res.status(400).json({ error: "Note is required" });
+    }
+
+    const action = await ActionModel.getActionDetail(actionId);
+    if (!action) return res.status(404).json({ error: "Action not found" });
+
+    const created = await ActionNoteModel.addActionNote(actionId, authorId, note.trim());
+
+    res.status(201).json(created);
+  } catch (err) {
+    next(err);
   }
 });
 

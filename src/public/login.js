@@ -16,7 +16,8 @@ document.getElementById('loginForm').addEventListener('submit', async function (
     if (response.ok && data.token) {
       localStorage.setItem('jwt_token', data.token);
       localStorage.setItem('user_id', data.id);
-      localStorage.setItem('username', data.username); // backend sends "username" (email)
+      localStorage.setItem('username', data.username); 
+      localStorage.setItem("role", data.role);
       if (data.role) localStorage.setItem('role', data.role); // if you include role in sendToken later
 
       showCustomAlert('Login Successful', 'You are now signed in.', 'success');

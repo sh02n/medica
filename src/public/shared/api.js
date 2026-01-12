@@ -1,4 +1,4 @@
-const API_BASE = "http://localhost:3000"; // change if your backend runs elsewhere
+const API_BASE = "http://localhost:3000"; 
 
 function getToken() {
   return localStorage.getItem("jwt_token");
@@ -26,8 +26,7 @@ async function apiFetch(path, options = {}) {
   const res = await fetch(`${API_BASE}${path}`, { ...options, headers });
 
   if (res.status === 401) {
-    localStorage.removeItem("token");
-    alert("Session expired. Please login again.");
+    localStorage.clear();
     window.location.href = "/login.html";
     return;
   }
@@ -40,6 +39,16 @@ async function apiFetch(path, options = {}) {
 
   return data;
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  const role = localStorage.getItem("role");
+  const dashboardLink = document.getElementById("dashboardBtn");
+
+  if (dashboardLink && role !== "CSM") {
+    dashboardLink.style.display = "none";
+  }
+});
+
 
 function logout() {
   localStorage.removeItem("token");

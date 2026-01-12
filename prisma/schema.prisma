@@ -56,6 +56,7 @@ model User {
 
   customers Customer[] @relation("CustomerOwner")
   actions   ActionItem[] @relation("ActionOwner")
+  actionNotes ActionNote[]
 }
 
 model Customer {
@@ -109,7 +110,23 @@ model ActionItem {
   customer    Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
   owner       User     @relation("ActionOwner", fields: [ownerId], references: [id])
 
+  notesLog ActionNote[]
+
   @@index([customerId])
   @@index([ownerId])
   @@index([status, dueDate])
 }
+
+model ActionNote {
+  id        Int      @id @default(autoincrement())
+  actionId  Int
+  authorId  Int
+  note      String
+  createdAt DateTime @default(now())
+
+  action    ActionItem @relation(fields: [actionId], references: [id], onDelete: Cascade)
+  author    User       @relation(fields: [authorId], references: [id])
+
+  @@index([actionId, createdAt])
+}
+

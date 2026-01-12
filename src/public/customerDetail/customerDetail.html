@@ -4,6 +4,8 @@
   <meta charset="UTF-8" />
   <title>Customer Detail</title>
   <link rel="stylesheet" href="customerDetail.css" />
+  <link rel="stylesheet" href="/shared/main.css">
+
 </head>
 <body>
   <header class="topbar">
@@ -52,6 +54,72 @@
       <p id="actionsEmpty" class="muted" style="display:none;">No actions yet.</p>
     </section>
   </main>
+
+  <div id="doneModal" class="modal" style="display:none;">
+  <div class="modal-card">
+    <div class="modal-header">
+      <h3>Mark Action as Done</h3>
+      <button id="closeDoneModal" class="btn">✕</button>
+    </div>
+
+    <div class="modal-body">
+      <p class="muted" id="doneActionTitle"></p>
+
+      <label for="doneOutcome">Outcome</label>
+      <select id="doneOutcome" required>
+        <option value="">Select outcome</option>
+        <option value="IMPROVED">Improved</option>
+        <option value="NO_RESPONSE">No Response</option>
+        <option value="ISSUE_RESOLVED">Issue Resolved</option>
+        <option value="NOT_IMPROVED">Not Improved</option>
+      </select>
+
+      <label for="doneNextStep">Next step (optional)</label>
+      <textarea id="doneNextStep" rows="3" placeholder="e.g. Follow up in 3 days"></textarea>
+    </div>
+
+    <div class="modal-footer">
+      <button id="confirmDoneBtn" class="primary">Confirm</button>
+      <button id="cancelDoneBtn" class="btn">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<div id="actionModal" class="modal" style="display:none;">
+  <div class="modal-card">
+    <div class="modal-header">
+      <h3>Action Details</h3>
+      <button id="closeActionModal" class="btn">✕</button>
+    </div>
+
+    <div class="modal-body">
+      <div id="actionMeta" class="muted"></div>
+
+      <div class="section">
+        <div class="label">Initial Notes</div>
+        <div id="actionInitialNotes" class="box"></div>
+      </div>
+
+      <div class="section">
+        <div class="label">Progress Updates</div>
+        <div id="actionNotesList" class="notesList"></div>
+      </div>
+
+      <div class="section">
+        <div class="label">Add Update</div>
+        <div class="updateRow">
+          <textarea id="newActionNote" rows="3" placeholder="e.g. Called customer, no response"></textarea>
+          <button id="saveActionNoteBtn" class="primary">Save Update</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button id="modalMarkDoneBtn" class="btn">Mark Done</button>
+      <button id="modalCloseBtn" class="btn">Close</button>
+    </div>
+  </div>
+</div>
 
   <script src="/shared/api.js"></script>
   <script src="customerDetail.js"></script>
