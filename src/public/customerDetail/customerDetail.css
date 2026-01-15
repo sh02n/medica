@@ -1,113 +1,24 @@
-body { font-family: Arial, sans-serif; margin:0; background:#fafafa; }
+/* customerDetail.css
+   Page-specific styles ONLY. Shared styles live in /shared/main.css
+*/
 
-.topbar { display:flex; align-items:center; gap:12px; padding:14px 18px; background:#fff; border-bottom:1px solid #e5e5e5; }
-.topbar h1 { flex:1; margin:0; }
-
-.container { padding:18px; display:flex; flex-direction:column; gap:14px; }
-
-.card { background:#fff; border:1px solid #eee; border-radius:10px; padding:14px; }
-
-.grid { display:grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap:10px; }
-
-.kpi { border:1px solid #eee; border-radius:10px; padding:10px; }
-.kpi .label { color:#666; font-size:12px; }
-.kpi .value { font-size:18px; font-weight:700; margin-top:6px; }
-
-.table { width:100%; border-collapse: collapse; }
-.table th, .table td { padding:10px; border-bottom:1px solid #eee; text-align:left; }
-
-.row { display:flex; justify-content:space-between; align-items:center; }
-
-.banner { padding:12px; border-radius:10px; background:#fff3cd; border:1px solid #ffeeba; }
-
-.muted { color:#666; }
-
-button { padding:8px 10px; }
-
-/* ---------------- Modal ---------------- */
-.modal{
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.35);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 18px;
-  z-index: 9999;
+#driversList{
+  margin: 0;
+  padding-left: 18px;
+  color: #0f172a;
 }
 
-.modal-card{
-  width: 100%;
-  max-width: 760px;
-  background: #fff;
-  border: 1px solid #eee;
-  border-radius: 18px;
-  padding: 18px;
+#driversList li{
+  margin: 6px 0;
 }
 
-.modal-header{
-  display:flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #eee;
-}
-
-.modal-body{
-  margin-top: 14px;
-  display:flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.modal-body label{
-  font-size: 12px;
-  color:#666;
-}
-
-.modal-body select,
-.modal-body textarea{
-  border: 1px solid #ddd;
-  border-radius: 12px;
-  padding: 12px;
-  font-family: inherit;
-}
-
-.modal-footer{
-  margin-top: 14px;
-  display:flex;
-  justify-content: flex-end;
-  gap: 10px;
-  padding-top: 12px;
-  border-top: 1px solid #eee;
-}
-
-.btn{
-  padding: 10px 12px;
-  border-radius: 10px;
-  border: 1px solid #ddd;
-  background: #fff;
-  cursor: pointer;
-}
-.btn:hover{ background: #f7f7f7; }
-
-/* ---------------- Action detail sections ---------------- */
+/* Action detail sections (page-specific content layout) */
 .section { margin-top: 12px; }
 
 .section .label{
   font-size: 12px;
-  color: #666;
+  color: #64748b;
   margin-bottom: 6px;
-}
-
-.box{
-  width: 100%;
-  border: 1px solid #eee;
-  border-radius: 12px;
-  padding: 12px;
-  background: #fafafa;
-  min-height: 44px;
 }
 
 .notesList{
@@ -118,15 +29,15 @@ button { padding:8px 10px; }
 }
 
 .noteItem{
-  border: 1px solid #eee;
-  border-radius: 10px;
-  padding: 10px;
+  border: 1px solid #e6ecea;
+  border-radius: 12px;
+  padding: 12px;
   background: #fff;
 }
 
 .noteMeta{
   font-size: 12px;
-  color: #777;
+  color: #64748b;
   margin-bottom: 6px;
 }
 
@@ -140,10 +51,6 @@ button { padding:8px 10px; }
 .updateRow textarea{
   flex: 1;
   width: 100%;
-  border: 1px solid #ddd;
-  border-radius: 12px;
-  padding: 12px;
-  font-family: inherit;
   resize: vertical;
   min-height: 80px;
 }
@@ -151,6 +58,50 @@ button { padding:8px 10px; }
 .updateRow button{
   height: 44px;
   white-space: nowrap;
-  padding: 10px 14px;
-  border-radius: 12px;
+}
+
+/* Make tables scroll nicely on small screens */
+.table{ display: block; overflow-x: auto; }
+.table thead, .table tbody, .table tr{ display: table; width: 100%; table-layout: fixed; }
+
+
+#momentumBadge{
+  font-size: 13px;
+}
+
+.momentum-up{ color:#166534; }
+.momentum-down{ color:#991b1b; }
+.momentum-flat{ color:#334155; }
+
+
+.twoCol{
+  display: grid;
+  grid-template-columns: 1.4fr 1fr; /* chart wider than drivers */
+  gap: 14px;
+}
+
+.chartCanvas{
+  width: 100%;
+  height: 180px;
+  display: block;
+}
+
+/* Stack on smaller screens */
+@media (max-width: 900px){
+  .twoCol{
+    grid-template-columns: 1fr;
+  }
+  .chartCanvas{
+    height: 200px;
+  }
+}
+
+#driversList{
+  margin: 0;
+  padding-left: 18px;
+}
+
+#driversList li{
+  margin: 6px 0;
+  color: #111;
 }

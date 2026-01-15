@@ -74,4 +74,42 @@ async function getCustomerDetail(customerId) {
   };
 }
 
-module.exports = { listCustomers, getCustomerDetail };
+async function getCustomerHealthHistory(customerId, days = 14) {
+  const c = await prisma.customer.findUnique({
+    where: { id: Number(customerId) },
+    include: { events: true }
+  });
+  if (!c) return null;
+
+  // Build daily snapshots: for each day, compute health score using events up to that date.
+  const now = new Date();
+  const points = [];
+
+  for (let i = days - 1; i >= 0; i--) {
+    const date = new Date(now);
+    date.setDate(now.getDate() - i);
+    date.setHours(23, 59, 59, 999);
+
+    const eventsUpToThatDay = c.events.filter(e => new Date(e.occurredAt) <= date);
+    const health = computeHealthAndDrivers(eventsUpToThatDay);
+
+    points.push({
+      date: new Date(date.getFullYear(), date.getMonth(), date.getDate()).toISOString(),
+      score: health.healthScore
+    });
+  }
+
+  // Momentum vs 7 days ago (or earliest available)
+  const last = points[points.length - 1]?.score ?? 0;
+  const idx7 = Math.max(points.length - 1 - 7, 0);
+  const prev7 = points[idx7]?.score ?? last;
+  const delta = last - prev7;
+
+  let direction = "Stable";
+  if (delta >= 5) direction = "Improving";
+  else if (delta <= -5) direction = "Declining";
+
+  return { points, delta, direction };
+}
+
+module.exports = { listCustomers, getCustomerDetail, getCustomerHealthHistory };

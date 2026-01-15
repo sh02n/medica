@@ -3,12 +3,6 @@ requireAuth();
 const tbody = document.getElementById("customerTbody");
 const emptyState = document.getElementById("emptyState");
 
-document.getElementById("logoutBtn").onclick = logout;
-
-document.getElementById("dashboardBtn").onclick = () => {
-  window.location.href = "/dashboard/dashboard.html";
-};
-
 document.getElementById("applyBtn").onclick = loadCustomers;
 
 function badge(text) {
@@ -22,18 +16,29 @@ function fmtDate(d) {
 }
 
 async function loadCustomers() {
-  const search = document.getElementById("searchInput").value.trim();
+  const qs = new URLSearchParams(window.location.search);
+  const view = qs.get("view"); // my / all
+  const currentUserId = Number(localStorage.getItem("id"));
+
+  // read filters from UI
+  const search = document.getElementById("searchInput").value.trim().toLowerCase();
   const risk = document.getElementById("riskFilter").value;
   const fatigue = document.getElementById("fatigueFilter").value;
   const segment = document.getElementById("segmentFilter").value;
 
-  const params = new URLSearchParams();
-  if (search) params.set("search", search);
-  if (risk) params.set("risk", risk);
-  if (fatigue) params.set("fatigue", fatigue);
-  if (segment) params.set("segment", segment);
+  // fetch ONCE
+  let data = await apiFetch("/customers");
 
-  const data = await apiFetch(`/customers?${params.toString()}`);
+  // my/all filter
+  if (view === "my") {
+    data = data.filter(c => Number(c.ownerId) === currentUserId);
+  }
+
+  // UI filters
+  if (search) data = data.filter(c => (c.name || "").toLowerCase().includes(search));
+  if (risk) data = data.filter(c => c.riskLabel === risk);
+  if (fatigue) data = data.filter(c => c.fatigueRisk === fatigue);
+  if (segment) data = data.filter(c => c.segment === segment);
 
   tbody.innerHTML = "";
   if (!data || data.length === 0) {
@@ -60,5 +65,6 @@ async function loadCustomers() {
     tbody.appendChild(tr);
   }
 }
+
 
 loadCustomers();

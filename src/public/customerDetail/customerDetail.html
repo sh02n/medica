@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <title>Customer Detail</title>
-  <link rel="stylesheet" href="customerDetail.css" />
   <link rel="stylesheet" href="/shared/main.css">
-
+  <link rel="stylesheet" href="customerDetail.css" />
 </head>
 <body>
   <header class="topbar">
@@ -24,10 +23,24 @@
       <div id="summaryGrid" class="grid"></div>
     </section>
 
-    <section class="card">
-      <h2>Top Risk Drivers</h2>
-      <ul id="driversList"></ul>
-    </section>
+<div class="twoCol">
+  <!-- LEFT: Health Trend -->
+  <section class="card">
+    <div class="row">
+      <h2>Health Trend (14 days)</h2>
+      <div id="momentumBadge" class="muted"></div>
+    </div>
+    <canvas id="healthChart" width="900" height="180" class="chartCanvas"></canvas>
+  </section>
+
+  <!-- RIGHT: Top Risk Drivers -->
+  <section class="card">
+    <h2>Top Risk Drivers</h2>
+    <ul id="driversList"></ul>
+  </section>
+</div>
+
+
 
     <section class="card">
       <div class="row">

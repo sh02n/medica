@@ -1,0 +1,51 @@
+<!-- Sidebar shell injected into pages -->
+<aside id="sidebar" class="sidebar">
+  <div class="sidebar-top">
+    <div class="brand">
+      <div class="brand-dot"></div>
+      <div>
+        <div class="brand-title">Customer Health</div>
+        <a class="brand-sub brand-sub-link" id="sidebarUserMeta" href="/profile/profile.html">—</a>
+      </div>
+    </div>
+    <button id="sidebarCloseBtn" class="iconBtn" aria-label="Close sidebar">✕</button>
+  </div>
+
+  <nav class="nav">
+    <div class="nav-section">
+      <div class="nav-title">CURRENT TRENDS</div>
+      <a class="nav-link" href="/dashboard/dashboard.html" data-role="CSM">
+        Trends Overview
+      </a>
+      <a class="nav-link" href="/dashboard/dashboard.html#overdue" data-role="CSM">
+        Overdue Actions
+      </a>
+
+      <!-- Optional: CSA-friendly trend page later -->
+      <a class="nav-link" href="/customers/customers.html" data-role="CSA">
+        My Trends (Coming Soon)
+      </a>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-title">MY WORK</div>
+      <a class="nav-link" href="/customers/customers.html?view=my">My Customers</a>
+      <a class="nav-link" href="/customers/customers.html?view=my&risk=At-Risk">My At-Risk</a>
+      <a class="nav-link" href="/customers/customers.html?view=my&fatigue=High">High Fatigue</a>
+      <a class="nav-link" href="/customers/customers.html?view=my&actions=overdue">My Overdue Actions</a>
+    </div>
+
+    <div class="nav-section" data-role="CSM">
+      <div class="nav-title">TEAM / GLOBAL</div>
+      <a class="nav-link" href="/customers/customers.html?view=all">All Customers</a>
+      <a class="nav-link" href="/customers/customers.html?view=all&actions=overdue">Team Overdue Actions</a>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-title">ACCOUNT</div>
+      <a class="nav-link" href="#" id="sidebarLogoutLink">Logout</a>
+    </div>
+  </nav>
+</aside>
+
+<div id="sidebarOverlay" class="sidebarOverlay"></div>

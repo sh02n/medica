@@ -1,10 +1,18 @@
-body { font-family: Arial, sans-serif; margin: 0; background: #fafafa; }
-.topbar { display:flex; justify-content:space-between; align-items:center; padding: 14px 18px; background:#fff; border-bottom:1px solid #e5e5e5; }
-.topbar-actions button { margin-left: 8px; }
-.controls { display:flex; gap:10px; padding: 14px 18px; background:#fff; border-bottom:1px solid #e5e5e5; flex-wrap:wrap; }
-.controls input, .controls select { padding: 8px; }
-.table { width: 100%; border-collapse: collapse; background:#fff; }
-.table th, .table td { padding: 10px; border-bottom: 1px solid #eee; text-align:left; }
-.badge { padding: 4px 8px; border-radius: 999px; font-size: 12px; display:inline-block; }
-.muted { padding: 18px; color:#666; }
-.rowbtn { padding: 6px 10px; }
+/* customers.css
+   Page-specific styles ONLY. Shared styles live in /shared/main.css
+*/
+
+.controls{
+  display:flex;
+  gap:10px;
+  padding: 14px 18px;
+  flex-wrap:wrap;
+}
+
+.controls input{
+  min-width: 220px;
+}
+
+@media (max-width: 520px){
+  .controls input{ width: 100%; }
+}
