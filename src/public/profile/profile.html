@@ -7,54 +7,45 @@
   <link rel="stylesheet" href="profile.css" />
 </head>
 <body>
-
   <main class="container">
-    <section class="pageHeader">
-      <h1>Profile</h1>
-      <p class="muted">Your account info (from current session).</p>
-    </section>
-
-    <section class="card">
-      <h2>Account</h2>
-
-      <div class="profileGrid">
-        <div class="profileItem">
-          <div class="label">Username</div>
-          <div class="value" id="pUsername">-</div>
-        </div>
-
-        <div class="profileItem">
-          <div class="label">Role</div>
-          <div class="value" id="pRole">-</div>
-        </div>
-
-        <div class="profileItem">
-          <div class="label">User ID</div>
-          <div class="value" id="pId">-</div>
-        </div>
+    <section class="card profileHeader">
+      <div>
+        <div class="profileName" id="profileName">—</div>
+        <div class="muted" id="profileMeta">—</div>
       </div>
 
       <div class="profileActions">
-        <a class="btn" href="/customers/customers.html?view=my">Go to My Customers</a>
+        <button class="btn" id="goCustomersBtn">My Customers</button>
         <button class="primary" id="logoutBtn">Logout</button>
       </div>
     </section>
 
     <section class="card">
-      <h2>Session</h2>
-      <p class="muted">
-        This page currently reads from <code>localStorage</code>. If you later add
-        a backend endpoint like <code>/auth/me</code>, we can make this fully server-driven.
-      </p>
+      <h2>Work Summary</h2>
+      <div class="grid" id="summaryGrid"></div>
+      <p class="muted" id="summaryHint" style="margin-top:10px;">Loaded from live data.</p>
+    </section>
 
-      <div class="profileActions">
-        <button class="btn danger" id="clearSessionBtn">Clear Session (Debug)</button>
+    <section class="card">
+      <h2>Permissions</h2>
+      <ul id="permList" class="permList"></ul>
+    </section>
+
+    <section class="card">
+      <h2>Session</h2>
+      <div class="row">
+        <div>
+          <div class="muted">Auto logout after 30 minutes of inactivity</div>
+          <div class="sessionTimer" id="sessionTimer">—</div>
+        </div>
+        <button class="btn" id="refreshSessionBtn">Refresh Session</button>
       </div>
     </section>
   </main>
 
   <script src="/shared/api.js"></script>
-  <script src="/shared/sidebar.js"></script>
+  <script src="/shared/menu.js"></script>
+  <script src="/shared/session.js"></script>
   <script src="profile.js"></script>
 </body>
 </html>

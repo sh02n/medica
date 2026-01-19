@@ -75,8 +75,6 @@ module.exports.verifyToken = function (req, res, next) {
     jwt.verify(token, secretKey, callback);
 };
 
-
-// Uncomment and use this function if needed to verify admin role
 // module.exports.verifyIsAdmin = function (req, res, next) {
 //     console.log(res.locals.role, typeof res.locals.role);
 //     if (res.locals.role !== 2) {

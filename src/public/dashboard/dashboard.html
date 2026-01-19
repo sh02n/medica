@@ -3,33 +3,50 @@
 <head>
   <meta charset="UTF-8" />
   <title>Manager Dashboard</title>
+  <link rel="stylesheet" href="/shared/main.css">
   <link rel="stylesheet" href="dashboard.css" />
 </head>
 <body>
-  <header class="topbar">
-    <button id="backBtn">← Back</button>
-    <h1>Manager Dashboard</h1>
-    <button id="logoutBtn">Logout</button>
-  </header>
+  <main class="container dashboard">
+    <div class="dashTop">
+      <section class="card">
+        <h2>Risk Distribution</h2>
+        <div id="riskDist" class="dist"></div>
+      </section>
 
-  <main class="container">
-    <section class="card">
-      <h2>Risk Distribution</h2>
-      <pre id="riskBox"></pre>
-    </section>
+      <section class="card">
+        <h2>Fatigue Distribution</h2>
+        <div id="fatigueDist" class="dist"></div>
+      </section>
 
-    <section class="card">
-      <h2>Fatigue Distribution</h2>
-      <pre id="fatigueBox"></pre>
-    </section>
+      <section class="card">
+        <h2>Top At-Risk Customers</h2>
+        <div id="topAtRiskList" class="rankList"></div>
+      </section>
+    </div>
 
-    <section class="card">
-      <h2>Top Risk Drivers</h2>
-      <table class="table">
-        <thead><tr><th>Driver</th><th>Count</th></tr></thead>
-        <tbody id="driversTbody"></tbody>
-      </table>
-    </section>
+    <div class="dashMid">
+      <section class="card chartCard">
+        <div class="cardHeaderRow">
+          <h2>Health Trend (Last 14 Days)</h2>
+          <div class="muted" id="trendHint">Overall</div>
+        </div>
+
+        <!-- wrapper so tooltip can position nicely -->
+        <div class="chartWrap">
+          <canvas id="trendChart" width="860" height="260"></canvas>
+          <div id="chartTooltip" class="chartTooltip" style="display:none"></div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Top Risk Drivers</h2>
+        <table class="table">
+          <thead><tr><th>Driver</th><th>Count</th></tr></thead>
+          <tbody id="driversTbody"></tbody>
+        </table>
+      </section>
+    </div>
 
     <section class="card">
       <h2>Overdue Actions</h2>
@@ -41,6 +58,7 @@
   </main>
 
   <script src="/shared/api.js"></script>
+  <script src="/shared/menu.js"></script>
   <script src="dashboard.js"></script>
 </body>
 </html>

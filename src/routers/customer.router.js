@@ -5,8 +5,17 @@ const jwtMiddleware = require("../middlewares/jwtMiddleware");
 
 router.get("/", jwtMiddleware.verifyToken, async (req, res) => {
   try {
-    const { search, risk, fatigue, segment, ownerId } = req.query;
-    const customers = await listCustomers({ search, risk, fatigue, segment, ownerId });
+    const { search, risk, fatigue, segment } = req.query;
+
+    const role = res.locals.role;
+    const userId = res.locals.id;
+
+    let ownerId = req.query.ownerId;
+
+    if (role === "CSA") {  ownerId = userId;  }
+
+    const customers = await listCustomers({ search, risk, fatigue, segment, ownerId});
+
     res.json(customers);
   } catch (e) {
     console.error(e);

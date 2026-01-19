@@ -57,3 +57,24 @@ function logout() {
   localStorage.removeItem("role");
   window.location.href = "/login.html";
 }
+
+
+let inactivityTimer;
+
+const INACTIVITY_LIMIT = 30 * 60 * 1000; // 30 minutes
+
+function resetInactivityTimer() {
+  clearTimeout(inactivityTimer);
+  inactivityTimer = setTimeout(() => {
+    logout();
+    alert("You have been logged out due to inactivity.");
+  }, INACTIVITY_LIMIT);
+}
+
+// Reset on user activity
+["click", "mousemove", "keydown", "scroll"].forEach(event => {
+  document.addEventListener(event, resetInactivityTimer);
+});
+
+// Start timer on load
+resetInactivityTimer();

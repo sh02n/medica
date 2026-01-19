@@ -1,5 +1,18 @@
-<!-- Sidebar shell injected into pages -->
-<aside id="sidebar" class="sidebar">
+<header class="appTopbar">
+  <button id="menuToggleBtn" class="iconBtn" aria-label="Open menu">☰</button>
+
+  <div class="appTopbar-title" id="appTopbarTitle">CarePulse</div>
+
+  <a class="profileBtn" href="/profile/profile.html" id="topbarProfileBtn">
+    <div class="profileAvatar" aria-hidden="true"></div>
+    <div class="profileText">
+      <div class="profileName" id="topbarProfileName">User</div>
+      <div class="profileRole muted" id="topbarProfileRole">—</div>
+    </div>
+  </a>
+</header>
+
+<aside id="sidebar" class="sidebar" aria-label="Sidebar Menu">
   <div class="sidebar-top">
     <div class="brand">
       <div class="brand-dot"></div>
@@ -14,17 +27,9 @@
   <nav class="nav">
     <div class="nav-section">
       <div class="nav-title">CURRENT TRENDS</div>
-      <a class="nav-link" href="/dashboard/dashboard.html" data-role="CSM">
-        Trends Overview
-      </a>
-      <a class="nav-link" href="/dashboard/dashboard.html#overdue" data-role="CSM">
-        Overdue Actions
-      </a>
-
-      <!-- Optional: CSA-friendly trend page later -->
-      <a class="nav-link" href="/customers/customers.html" data-role="CSA">
-        My Trends (Coming Soon)
-      </a>
+      <a class="nav-link" href="/dashboard/dashboard.html" data-role="CSM">Trends Overview</a>
+      <a class="nav-link" href="/dashboard/dashboard.html#overdue" data-role="CSM">Overdue Actions</a>
+      <a class="nav-link" href="/customers/customers.html" data-role="CSA">My Trends (Coming Soon)</a>
     </div>
 
     <div class="nav-section">
@@ -48,4 +53,4 @@
   </nav>
 </aside>
 
-<div id="sidebarOverlay" class="sidebarOverlay"></div>
+<div id="sidebarOverlay" class="sidebarOverlay" aria-hidden="true"></div>

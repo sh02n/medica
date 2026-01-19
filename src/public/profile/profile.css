@@ -1,48 +1,31 @@
-.pageHeader{
-  margin-bottom: 6px;
-}
-
-.profileGrid{
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+.profileHeader{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
   gap: 12px;
-  margin-top: 12px;
 }
 
-@media (max-width: 900px){
-  .profileGrid{ grid-template-columns: 1fr; }
-}
-
-.profileItem{
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 12px;
-  background: linear-gradient(180deg, var(--panel), var(--panel-2));
-}
-
-.profileItem .label{
-  font-size: 12px;
-  color: var(--muted);
-}
-
-.profileItem .value{
-  margin-top: 6px;
-  font-size: 16px;
-  font-weight: 700;
+.profileName{
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: .2px;
 }
 
 .profileActions{
-  margin-top: 14px;
-  display: flex;
+  display:flex;
   gap: 10px;
-  flex-wrap: wrap;
-  justify-content: flex-end;
+  align-items:center;
 }
 
-/* Optional "danger" style */
-.danger{
-  border-color: rgba(239,68,68,.35);
+.permList{
+  margin: 0;
+  padding-left: 18px;
+  display:flex;
+  flex-direction:column;
+  gap: 6px;
 }
-.danger:hover{
-  border-color: rgba(239,68,68,.55);
+
+.sessionTimer{
+  margin-top: 6px;
+  font-weight: 700;
 }
