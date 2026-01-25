@@ -7,134 +7,235 @@
   <link rel="stylesheet" href="customerDetail.css" />
 </head>
 <body>
-  <header class="topbar">
-    <button id="backBtn">← Back</button>
-    <h1 id="title">Customer</h1>
-    <div class="topbar-actions">
-      <button id="logoutBtn">Logout</button>
-    </div>
-  </header>
 
-  <main class="container">
-    <section id="fatigueBanner" class="banner" style="display:none;"></section>
+  <main class="appMain">
+    <div class="container">
+      <!-- Fatigue banner -->
+      <section id="fatigueBanner" class="banner" style="display:none;"></section>
 
-    <section class="card">
-      <h2>Summary</h2>
-      <div id="summaryGrid" class="grid"></div>
-    </section>
+      <!-- CUSTOMER HEADER CARD (like screenshot) -->
+      <section class="card customerHero">
+        <div class="heroTop">
+          <div class="heroLeft">
+            <div class="crumbs" id="crumbs">Enterprise • Owner: - • Last Activity: -</div>
+            <div class="heroTitleRow">
+              <div class="heroTitle" id="custName">Customer</div>
+            </div>
+          </div>
 
-<div class="twoCol">
-  <!-- LEFT: Health Trend -->
-  <section class="card">
-    <div class="row">
-      <h2>Health Trend (14 days)</h2>
-      <div id="momentumBadge" class="muted"></div>
-    </div>
-    <canvas id="healthChart" width="900" height="180" class="chartCanvas"></canvas>
-  </section>
+          <div class="heroActions">
+            <button id="addEventBtn" class="btn">＋ Add Event</button>
+            <button id="addActionBtn" class="primary">＋ Create Action</button>
+          </div>
+        </div>
 
-  <!-- RIGHT: Top Risk Drivers -->
-  <section class="card">
-    <h2>Top Risk Drivers</h2>
-    <ul id="driversList"></ul>
-  </section>
-</div>
+        <div class="heroMetrics">
+          <!-- Health Score -->
+          <div class="metric">
+            <div class="metricLabel">Health Score</div>
+            <div class="healthRow">
+              <div class="healthBar">
+                <div id="healthBarFill" class="healthBarFill" style="width:0%"></div>
+              </div>
+              <div id="healthValue" class="healthValue">-</div>
+            </div>
+          </div>
 
+          <!-- Risk label -->
+          <div class="metric">
+            <div class="metricLabel">Risk Label</div>
+            <div id="riskPill" class="pill pill-ok">-</div>
+          </div>
 
+          <!-- Fatigue risk -->
+          <div class="metric">
+            <div class="metricLabel">Fatigue Risk</div>
+            <div id="fatiguePill" class="pill pill-neutral">-</div>
+          </div>
 
-    <section class="card">
-      <div class="row">
-        <h2>Engagement Timeline</h2>
-        <button id="addEventBtn">+ Add Event</button>
+          <!-- Active actions -->
+          <div class="metric">
+            <div class="metricLabel">Active Actions</div>
+            <div id="activeActionsCount" class="bigNum">0</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="row">
+          <h2 class="sectionTitle">Completed Actions</h2>
+        </div>
+
+        <div id="completedActionsPanel"></div>
+        <div id="completedEmptyCard" class="muted" style="display:none;">No completed actions.</div>
+      </section>
+
+      <!-- Activity in past 7 days -->
+      <section class="card">
+        <div class="row">
+          <h2 class="sectionTitle">Activity in Past 7 Days</h2>
+        </div>
+        <div class="activityChartWrap">
+          <canvas id="activity7dChart" width="320" height="80"></canvas>
+        </div>
+      </section>
+
+      <!-- Bottom grid: left big / right small -->
+      <div class="detailGrid">
+        <!-- LEFT -->
+        <section class="card leftStack">
+          <div class="stackBlock">
+            <h2 class="sectionTitle">Top Risk Drivers</h2>
+            <div id="driversWrap" class="driversWrap"></div>
+          </div>
+
+          <div class="stackDivider"></div>
+
+          <div class="stackBlock">
+            <div class="row">
+              <h2 class="sectionTitle">Engagement Timeline</h2>
+            </div>
+            <div id="timelineList" class="timeline"></div>
+            <div id="timelineEmpty" class="muted" style="display:none;">No events yet.</div>
+          </div>
+        </section>
+
+        <!-- RIGHT -->
+        <section class="card">
+          <div class="row">
+            <h2 class="sectionTitle">Active Actions</h2>
+          </div>
+
+          <div id="activeActionsPanel"></div>
+          <div id="actionsEmptyCard" class="muted" style="display:none;">No active actions.</div>
+        </section>
       </div>
-      <table class="table">
-        <thead><tr><th>Date</th><th>Type</th><th>Notes</th></tr></thead>
-        <tbody id="eventsTbody"></tbody>
-      </table>
-      <p id="eventsEmpty" class="muted" style="display:none;">No events yet.</p>
-    </section>
-
-    <section class="card">
-      <div class="row">
-        <h2>Actions</h2>
-        <button id="addActionBtn">+ Create Action</button>
-      </div>
-
-      <table class="table">
-        <thead><tr><th>Due</th><th>Type</th><th>Status</th><th>Priority</th><th>Outcome</th><th></th></tr></thead>
-        <tbody id="actionsTbody"></tbody>
-      </table>
-      <p id="actionsEmpty" class="muted" style="display:none;">No actions yet.</p>
-    </section>
+    </div>
   </main>
 
+  <!-- Done modal (keep yours) -->
   <div id="doneModal" class="modal" style="display:none;">
-  <div class="modal-card">
-    <div class="modal-header">
-      <h3>Mark Action as Done</h3>
-      <button id="closeDoneModal" class="btn">✕</button>
-    </div>
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Mark Action as Done</h3>
+        <button id="closeDoneModal" class="btn">✕</button>
+      </div>
 
-    <div class="modal-body">
-      <p class="muted" id="doneActionTitle"></p>
+      <div class="modal-body">
+        <p class="muted" id="doneActionTitle"></p>
 
-      <label for="doneOutcome">Outcome</label>
-      <select id="doneOutcome" required>
-        <option value="">Select outcome</option>
-        <option value="IMPROVED">Improved</option>
-        <option value="NO_RESPONSE">No Response</option>
-        <option value="ISSUE_RESOLVED">Issue Resolved</option>
-        <option value="NOT_IMPROVED">Not Improved</option>
-      </select>
+        <label for="doneOutcome">Outcome</label>
+        <select id="doneOutcome" required>
+          <option value="">Select outcome</option>
+          <option value="IMPROVED">Improved</option>
+          <option value="NO_RESPONSE">No Response</option>
+          <option value="ISSUE_RESOLVED">Issue Resolved</option>
+          <option value="NOT_IMPROVED">Not Improved</option>
+        </select>
 
-      <label for="doneNextStep">Next step (optional)</label>
-      <textarea id="doneNextStep" rows="3" placeholder="e.g. Follow up in 3 days"></textarea>
-    </div>
+        <label for="doneNextStep">Next step (optional)</label>
+        <textarea id="doneNextStep" rows="3" placeholder="e.g. Follow up in 3 days"></textarea>
+      </div>
 
-    <div class="modal-footer">
-      <button id="confirmDoneBtn" class="primary">Confirm</button>
-      <button id="cancelDoneBtn" class="btn">Cancel</button>
+      <div class="modal-footer">
+        <button id="confirmDoneBtn" class="primary">Confirm</button>
+        <button id="cancelDoneBtn" class="btn">Cancel</button>
+      </div>
     </div>
   </div>
-</div>
 
-<div id="actionModal" class="modal" style="display:none;">
-  <div class="modal-card">
-    <div class="modal-header">
-      <h3>Action Details</h3>
-      <button id="closeActionModal" class="btn">✕</button>
-    </div>
-
-    <div class="modal-body">
-      <div id="actionMeta" class="muted"></div>
-
-      <div class="section">
-        <div class="label">Initial Notes</div>
-        <div id="actionInitialNotes" class="box"></div>
+  <!-- Action details modal (keep yours) -->
+  <div id="actionModal" class="modal" style="display:none;">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Action Details</h3>
+        <button id="closeActionModal" class="btn">✕</button>
       </div>
 
-      <div class="section">
-        <div class="label">Progress Updates</div>
-        <div id="actionNotesList" class="notesList"></div>
-      </div>
+      <div class="modal-body">
+        <div id="actionMeta" class="muted"></div>
 
-      <div class="section">
-        <div class="label">Add Update</div>
-        <div class="updateRow">
-          <textarea id="newActionNote" rows="3" placeholder="e.g. Called customer, no response"></textarea>
-          <button id="saveActionNoteBtn" class="primary">Save Update</button>
+        <div class="section">
+          <div class="label">Initial Notes</div>
+          <div id="actionInitialNotes" class="box"></div>
+        </div>
+
+        <div class="section">
+          <div class="label">Progress Updates</div>
+          <div id="actionNotesList" class="notesList"></div>
+        </div>
+
+        <div class="section">
+          <div class="label">Add Update</div>
+          <div class="updateRow">
+            <textarea id="newActionNote" rows="3" placeholder="e.g. Called customer, no response"></textarea>
+            <button id="saveActionNoteBtn" class="primary">Save Update</button>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="modal-footer">
-      <button id="modalMarkDoneBtn" class="btn">Mark Done</button>
-      <button id="modalCloseBtn" class="btn">Close</button>
+  
+
+      <div class="modal-footer">
+        <button id="modalMarkDoneBtn" class="btn">Mark Done</button>
+        <button id="modalCloseBtn" class="btn">Close</button>
+      </div>
     </div>
   </div>
-</div>
+
+  <!-- Create Action modal -->
+  <div id="createActionModal" class="modal" style="display:none;">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Create Action</h3>
+        <button id="closeCreateActionModal" class="btn">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <form id="createActionForm" class="formGrid">
+          <div class="field">
+            <label for="caType">Action Type</label>
+            <select id="caType" required>
+              <option value="CALL">CALL</option>
+              <option value="EMAIL">EMAIL</option>
+              <option value="MEETING">MEETING</option>
+              <option value="OFFER_DISCOUNT">OFFER_DISCOUNT</option>
+              <option value="RESOLVE_TICKET">RESOLVE_TICKET</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="caDue">Due Date</label>
+            <input id="caDue" type="date" required />
+          </div>
+
+          <div class="field">
+            <label for="caPriority">Priority (1=High, 2=Med, 3=Low)</label>
+            <select id="caPriority" required>
+              <option value="1">1</option>
+              <option value="2" selected>2</option>
+              <option value="3">3</option>
+            </select>
+          </div>
+
+          <div class="field fieldFull">
+            <label for="caNotes">Notes</label>
+            <textarea id="caNotes" rows="5" placeholder="e.g. Send training resources and schedule onboarding session"></textarea>
+          </div>
+
+          <div class="fieldFull row" style="justify-content:flex-end;">
+            <button type="button" id="cancelCreateActionBtn" class="btn">Cancel</button>
+            <button type="submit" id="submitCreateActionBtn" class="primary">Create</button>
+          </div>
+
+          <div id="createActionErr" class="muted" style="display:none;"></div>
+        </form>
+      </div>
+    </div>
+  </div>
 
   <script src="/shared/api.js"></script>
+  <script src="/shared/menu.js"></script>
   <script src="customerDetail.js"></script>
 </body>
 </html>

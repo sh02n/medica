@@ -1,18 +1,298 @@
-/* customers.css
-   Page-specific styles ONLY. Shared styles live in /shared/main.css
-*/
-
+/* ===== Filter bar (like screenshot) ===== */
 .controls{
-  display:flex;
-  gap:10px;
   padding: 14px 18px;
-  flex-wrap:wrap;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
-.controls input{
-  min-width: 220px;
+.filterBar{
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 14px;
+  align-items: center;
 }
 
-@media (max-width: 520px){
-  .controls input{ width: 100%; }
+.searchWrap{
+  position: relative;
+}
+
+.searchWrap input{
+  width: 100%;
+  height: 48px;
+  border-radius: 14px;
+  padding-left: 44px;
+  padding-right: 14px;
+  background: rgba(255,255,255,.9);
+}
+
+.searchIcon{
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #94a3b8;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+
+.filtersBtn{
+  height: 48px;
+  padding: 0 16px;
+  border-radius: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid rgba(226,232,240,.9);
+  background: rgba(255,255,255,.9);
+}
+
+.filtersBtn:hover{
+  background: rgba(255,255,255,1);
+  border-color: rgba(15,118,110,.30);
+}
+
+.filtersBtn.isOpen{
+  border-color: rgba(37,99,235,.65);
+  box-shadow: 0 0 0 4px rgba(37,99,235,.12);
+}
+
+.filtersIcon{
+  color: #0f172a;
+  display: grid;
+  place-items: center;
+}
+
+/* ===== Expandable panel ===== */
+.filtersPanel{
+  background: rgba(255,255,255,.85);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 14px;
+  box-shadow: var(--shadow-soft);
+}
+
+.filtersGrid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px 22px;
+}
+
+.field{
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.fieldLabel{
+  font-weight: 500;
+  color: #0f172a;
+}
+
+.field select{
+  height: 48px;
+  border-radius: 14px;
+}
+
+.filtersActions{
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+@media (max-width: 720px){
+  .filterBar{
+    grid-template-columns: 1fr;
+  }
+  .filtersGrid{
+    grid-template-columns: 1fr;
+  }
+}
+
+.customersCard{
+  background: rgba(255,255,255,.88);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+}
+
+.customersHeader{
+  display: grid;
+  grid-template-columns: 2.2fr 1.4fr 1.6fr 1.1fr 1.4fr 44px;
+  gap: 12px;
+  padding: 14px 18px;
+  font-weight: bold;
+
+  color: #334155;
+  background: rgba(247,250,249,.95);
+  border-bottom: 1px solid var(--border);
+}
+
+.customersBody{ display: flex; flex-direction: column; }
+
+.customerRow{
+  display: grid;
+  grid-template-columns: 2.2fr 1.4fr 1.6fr 1.1fr 1.4fr 44px;
+  gap: 12px;
+  padding: 18px;
+  align-items: center;
+
+  background: rgba(255,255,255,.7);
+  border-bottom: 1px solid var(--border);
+}
+
+.customerRow:hover{
+  background: rgba(15,118,110,.05);
+  cursor: pointer;
+}
+
+.customerCell{
+  min-width: 0;
+}
+
+/* Customer name + segment (stacked) */
+.customerName{
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.customerSub{
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Owner text */
+.ownerText{
+  font-size: 16px;
+  color: #0f172a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Health score bar */
+.healthWrap{
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.healthBar{
+  position: relative;
+  height: 10px;
+  width: 140px;
+  border-radius: 999px;
+  background: rgba(226,232,240,.9);
+  overflow: hidden;
+}
+
+.healthFill{
+  height: 100%;
+  width: 0%;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #22c55e, #16a34a);
+}
+
+.healthScore{
+  font-weight: 500;
+  color: #0f172a;
+  min-width: 30px;
+}
+
+/* Pills */
+.pill{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(226,232,240,.9);
+  background: rgba(248,250,252,.9);
+  color: #0f172a;
+  white-space: nowrap;
+}
+
+.pillRiskHealthy{
+  border-color: rgba(34,197,94,.25);
+  background: rgba(34,197,94,.12);
+  color: #166534;
+}
+
+.pillRiskWatch{
+  border-color: rgba(245,158,11,.25);
+  background: rgba(245,158,11,.14);
+  color: #92400e;
+}
+
+.pillRiskAtRisk{
+  border-color: rgba(239,68,68,.25);
+  background: rgba(239,68,68,.12);
+  color: #991b1b;
+}
+
+.pillFatigueLow{
+  border-color: rgba(148,163,184,.35);
+  background: rgba(241,245,249,.95);
+  color: #0f172a;
+}
+
+.pillFatigueMedium{
+  border-color: rgba(245,158,11,.25);
+  background: rgba(245,158,11,.10);
+  color: #92400e;
+}
+
+.pillFatigueHigh{
+  border-color: rgba(239,68,68,.25);
+  background: rgba(239,68,68,.10);
+  color: #991b1b;
+}
+
+/* right chevron */
+.chevBtn{
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  margin-left: auto;
+}
+
+.chev{
+  font-size: 20px;
+  color: #64748b;
+  line-height: 1;
+}
+
+.emptyState{
+  padding: 16px 18px;
+}
+
+/* Responsive: collapse to stacked rows */
+@media (max-width: 920px){
+  .customersHeader{ display: none; }
+
+  .customerRow{
+    grid-template-columns: 1fr 44px;
+    grid-template-areas:
+      "cust chev"
+      "meta chev";
+    row-gap: 10px;
+  }
+
+  .cellCustomer{ grid-area: cust; }
+  .cellMeta{ grid-area: meta; display:flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  .cellChev{ grid-area: chev; }
+
+  .healthBar{ width: 160px; }
 }

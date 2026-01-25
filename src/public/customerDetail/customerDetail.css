@@ -1,107 +1,465 @@
-/* customerDetail.css
-   Page-specific styles ONLY. Shared styles live in /shared/main.css
-*/
-
-#driversList{
-  margin: 0;
-  padding-left: 18px;
-  color: #0f172a;
+.appMain > * {
+  padding-top: 0;
 }
 
-#driversList li{
-  margin: 6px 0;
+.customerHero{
+  padding: 16px;
 }
 
-/* Action detail sections (page-specific content layout) */
-.section { margin-top: 12px; }
+.heroTop{
+  display:flex;
+  align-items:flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 14px;
+}
 
-.section .label{
+.heroLeft{
+  min-width: 0;
+}
+
+.crumbs{
   font-size: 12px;
-  color: #64748b;
+  color: var(--muted);
+  margin-bottom: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.heroTitle{
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: .2px;
+}
+
+.heroActions{
+  display:flex;
+  gap: 10px;
+  align-items:center;
+  flex-shrink: 0;
+}
+
+.heroMetrics{
+  display:grid;
+  grid-template-columns: 1.6fr 1fr 1fr .8fr;
+  gap: 14px;
+  align-items: end;
+}
+
+.metricLabel{
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.healthRow{
+  display:flex;
+  align-items:center;
+  gap: 10px;
+}
+
+.healthBar{
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(15,118,110,.12);
+  border: 1px solid rgba(15,118,110,.18);
+  width: 100%;
+  overflow: hidden;
+}
+
+.healthBarFill{
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(180deg, var(--primary), var(--primary-2));
+}
+
+.healthValue{
+  font-weight: 500;
+  min-width: 28px;
+  text-align:right;
+}
+
+.pill{
+  display:inline-flex;
+  align-items:center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+  border: 1px solid var(--border);
+  background: rgba(247,250,249,.95);
+  color: #334155;
+  width: fit-content;
+}
+
+.pill-ok{
+  border-color: rgba(34,197,94,.30);
+  background: rgba(34,197,94,.10);
+  color: #166534;
+}
+
+.pill-warn{
+  border-color: rgba(245,158,11,.35);
+  background: rgba(245,158,11,.12);
+  color: #92400e;
+}
+
+.pill-bad{
+  border-color: rgba(220,38,38,.25);
+  background: rgba(220,38,38,.10);
+  color: #991b1b;
+}
+
+.pill-neutral{
+  border-color: rgba(148,163,184,.35);
+  background: rgba(148,163,184,.12);
+  color: #334155;
+}
+
+.bigNum{
+  font-weight: 500;
+  font-size: 18px;
+}
+
+/* ===== Activity card empty state ===== */
+.sectionTitle{
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0;
+}
+
+.emptyState{
+  padding: 18px;
+  border: 1px dashed rgba(148,163,184,.55);
+  border-radius: 12px;
+  color: var(--muted);
+  background: rgba(255,255,255,.55);
+  text-align:center;
+}
+
+/* ===== Bottom layout ===== */
+.detailGrid{
+  display:grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 14px;
+}
+
+.leftStack{
+  padding: 0;
+  overflow: hidden;
+}
+
+.stackBlock{
+  padding: 16px;
+}
+
+.stackDivider{
+  height: 1px;
+  background: var(--border);
+}
+
+/* ===== Drivers ===== */
+.driversWrap{
+  display:flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.driverCard{
+  display:flex;
+  align-items:flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,.75);
+}
+
+.driverLeft{
+  min-width: 0;
+}
+
+.driverTitle{
+  font-weight: 500;
+  font-size: 13px;
+  display:flex;
+  align-items:center;
+  gap: 8px;
   margin-bottom: 6px;
 }
 
-.notesList{
-  width: 100%;
-  display: flex;
+.driverDesc{
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.impactTag{
+  flex-shrink: 0;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 500;
+  border: 1px solid rgba(220,38,38,.22);
+  background: rgba(220,38,38,.08);
+  color: #991b1b;
+}
+
+/* ===== Timeline ===== */
+.timeline{
+  margin-top: 10px;
+  display:flex;
   flex-direction: column;
   gap: 10px;
 }
 
-.noteItem{
-  border: 1px solid #e6ecea;
-  border-radius: 12px;
-  padding: 12px;
-  background: #fff;
-}
-
-.noteMeta{
-  font-size: 12px;
-  color: #64748b;
-  margin-bottom: 6px;
-}
-
-/* Add update row */
-.updateRow{
-  display: flex;
+.tlItem{
+  display:flex;
+  align-items:flex-start;
+  justify-content: space-between;
   gap: 12px;
-  align-items: flex-end;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,.75);
 }
 
-.updateRow textarea{
-  flex: 1;
-  width: 100%;
-  resize: vertical;
-  min-height: 80px;
+.tlLeft{
+  display:flex;
+  align-items:flex-start;
+  gap: 10px;
+  min-width: 0;
 }
 
-.updateRow button{
-  height: 44px;
+.tlIcon{
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  display:grid;
+  place-items:center;
+  background: rgba(15,118,110,.10);
+  border: 1px solid rgba(15,118,110,.18);
+  flex-shrink: 0;
+}
+
+.tlTitle{
+  font-weight: 500;
+  font-size: 13px;
+  margin-bottom: 3px;
+}
+
+.tlSub{
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.tlDate{
+  font-size: 12px;
+  color: var(--muted);
   white-space: nowrap;
 }
 
-/* Make tables scroll nicely on small screens */
-.table{ display: block; overflow-x: auto; }
-.table thead, .table tbody, .table tr{ display: table; width: 100%; table-layout: fixed; }
+/* ===== Active action card ===== */
+.actionCard{
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: rgba(255,255,255,.75);
+  padding: 12px;
+  display:flex;
+  flex-direction: column;
+  gap: 10px;
+}
 
+.actionTop{
+  display:flex;
+  align-items:center;
+  justify-content: space-between;
+  gap: 10px;
+}
 
-#momentumBadge{
+.actionType{
+  font-weight: 500;
+  font-size: 13px;
+  display:flex;
+  gap: 10px;
+  align-items:center;
+}
+
+.actionBadges{
+  display:flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items:center;
+}
+
+.smallTag{
+  font-size: 11px;
+  font-weight: 500;
+  padding: 3px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: rgba(247,250,249,.95);
+  color: #334155;
+}
+
+.tagOverdue{
+  border-color: rgba(220,38,38,.25);
+  background: rgba(220,38,38,.08);
+  color: #991b1b;
+}
+
+.actionMetaRow{
+  display:flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.actionDesc{
+  font-size: 12px;
+  color: #0f172a;
+}
+
+.actionBtn{
+  width: 100%;
+}
+
+/* ===== Completed Actions ===== */
+.completedCard{
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: rgba(255,255,255,.82);
+  padding: 12px;
+  display:flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.compTop{
+  display:flex;
+  align-items:flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.compTitleRow{
+  display:flex;
+  align-items:center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.compTitle{
+  font-weight: 500;
   font-size: 13px;
 }
 
-.momentum-up{ color:#166534; }
-.momentum-down{ color:#991b1b; }
-.momentum-flat{ color:#334155; }
-
-
-.twoCol{
-  display: grid;
-  grid-template-columns: 1.4fr 1fr; /* chart wider than drivers */
-  gap: 14px;
+.compStatus{
+  font-size: 11px;
+  font-weight: 500;
+  padding: 3px 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(34,197,94,.25);
+  background: rgba(34,197,94,.10);
+  color: #166534;
 }
 
-.chartCanvas{
-  width: 100%;
-  height: 180px;
-  display: block;
+.compMetaRow{
+  display:flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 2px;
 }
 
-/* Stack on smaller screens */
-@media (max-width: 900px){
-  .twoCol{
+.compNotes{
+  font-size: 12px;
+  color: #0f172a;
+}
+
+.compDivider{
+  height: 1px;
+  background: var(--border);
+  margin: 4px 0;
+}
+
+.compOutcomeRow{
+  display:flex;
+  align-items:center;
+  gap: 10px;
+  flex-wrap: wrap;
+  font-size: 12px;
+}
+
+.outcomePill{
+  font-size: 11px;
+  font-weight: 500;
+  padding: 3px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: rgba(247,250,249,.95);
+  color: #334155;
+}
+
+.outcomeGood{
+  border-color: rgba(34,197,94,.25);
+  background: rgba(34,197,94,.10);
+  color: #166534;
+}
+.outcomeBad{
+  border-color: rgba(220,38,38,.20);
+  background: rgba(220,38,38,.08);
+  color: #991b1b;
+}
+.outcomeNeutral{
+  border-color: rgba(148,163,184,.35);
+  background: rgba(148,163,184,.12);
+  color: #334155;
+}
+
+.compFooterLine{
+  font-size: 12px;
+  color: var(--muted);
+}
+
+
+/* Create Action modal form layout */
+/* .formGrid{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.field label{
+  display:block;
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 6px;
+  font-weight: 800;
+}
+
+.fieldFull{ grid-column: 1 / -1; }
+
+@media (max-width: 720px){
+  .formGrid{ grid-template-columns: 1fr; }
+} */
+
+
+/* ===== Responsive ===== */
+@media (max-width: 980px){
+  .heroMetrics{
+    grid-template-columns: 1fr 1fr;
+  }
+  .detailGrid{
     grid-template-columns: 1fr;
   }
-  .chartCanvas{
-    height: 200px;
+  .heroActions{
+    flex-wrap: wrap;
+    justify-content: flex-end;
   }
-}
-
-#driversList{
-  margin: 0;
-  padding-left: 18px;
-}
-
-#driversList li{
-  margin: 6px 0;
-  color: #111;
 }

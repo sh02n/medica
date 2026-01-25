@@ -12,54 +12,97 @@
   </header>
 
   <section class="controls">
-    <input id="searchInput" placeholder="Search customer name..." />
+    <div class="filterBar">
+      <div class="searchWrap">
+        <span class="searchIcon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="18" height="18">
+            <path d="M10.5 3a7.5 7.5 0 1 1 0 15 7.5 7.5 0 0 1 0-15Zm0 2a5.5 5.5 0 1 0 .001 11.001A5.5 5.5 0 0 0 10.5 5Zm8.8 13.4 1.9 1.9-1.4 1.4-1.9-1.9a10 10 0 0 1-1.5 1l-.8-1.8c.6-.3 1.2-.8 1.7-1.3Z"
+                  fill="currentColor"/>
+          </svg>
+        </span>
 
-    <select id="riskFilter">
-      <option value="">All Risk</option>
-      <option value="Healthy">Healthy</option>
-      <option value="Watch">Watch</option>
-      <option value="At-Risk">At-Risk</option>
-    </select>
+        <input id="searchInput" placeholder="Search customers..." />
+      </div>
 
-    <select id="fatigueFilter">
-      <option value="">All Fatigue</option>
-      <option value="Low">Low</option>
-      <option value="Medium">Medium</option>
-      <option value="High">High</option>
-    </select>
+      <button id="toggleFiltersBtn" class="filtersBtn" type="button" aria-expanded="false">
+        <span class="filtersIcon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="18" height="18">
+            <path d="M3 5h18l-7 8v5l-4 2v-7L3 5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        Filters
+      </button>
+    </div>
 
-    <select id="segmentFilter">
-      <option value="">All Segments</option>
-      <option value="SMB">SMB</option>
-      <option value="Mid-Market">Mid-Market</option>
-      <option value="Enterprise">Enterprise</option>
-    </select>
+    <div id="filtersPanel" class="filtersPanel" hidden>
+      <div class="filtersGrid">
+        <label class="field">
+          <span class="fieldLabel">Risk Label</span>
+          <select id="riskFilter">
+            <option value="">All</option>
+            <option value="Healthy">Healthy</option>
+            <option value="Watch">Watch</option>
+            <option value="At-Risk">At-Risk</option>
+          </select>
+        </label>
 
-    <button id="applyBtn">Apply</button>
+        <label class="field">
+          <span class="fieldLabel">Fatigue Risk</span>
+          <select id="fatigueFilter">
+            <option value="">All</option>
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+          </select>
+        </label>
+
+        <!-- dont have owner filter in backend yet, keep it but don’t send param -->
+        <label class="field">
+          <span class="fieldLabel">Owner</span>
+          <select id="ownerFilter">
+            <option value="">All</option>
+            <!-- Optional: populate dynamically later -->
+            <!-- <option value="1">Sarah Johnson</option> -->
+          </select>
+        </label>
+
+        <label class="field">
+          <span class="fieldLabel">Segment</span>
+          <select id="segmentFilter">
+            <option value="">All</option>
+            <option value="SMB">SMB</option>
+            <option value="Mid-Market">Mid-Market</option>
+            <option value="Enterprise">Enterprise</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="filtersActions">
+        <button id="resetBtn" type="button">Reset</button>
+        <button id="applyBtn" class="btnNeutral" type="button">Apply</button>
+      </div>
+    </div>
   </section>
 
   <main>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Customer</th>
-          <th>Segment</th>
-          <th>Owner</th>
-          <th>Health</th>
-          <th>Risk</th>
-          <th>Fatigue</th>
-          <th>Last Activity</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody id="customerTbody"></tbody>
-    </table>
+    <section class="customersCard">
+      <div class="customersHeader">
+        <div>Customer</div>
+        <div>Owner</div>
+        <div>Health Score</div>
+        <div>Risk Label</div>
+        <div>Fatigue Risk</div>
+        <div></div>
+      </div>
 
-    <p id="emptyState" class="muted" style="display:none;">No customers found.</p>
+      <div id="customerList" class="customersBody"></div>
+
+      <p id="emptyState" class="muted emptyState" style="display:none;">No customers found.</p>
+    </section>
+
+    <script src="/shared/api.js"></script>
+    <script src="/shared/menu.js"></script>
+    <script src="customers.js"></script>
   </main>
-
-  <script src="/shared/api.js"></script>
-  <script src="/shared/menu.js"></script>
-  <script src="customers.js"></script>
 </body>
 </html>
