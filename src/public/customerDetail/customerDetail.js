@@ -1,5 +1,3 @@
-/* customerDetail.js (FULL) */
-
 requireAuth();
 
 const $ = (id) => document.getElementById(id);
@@ -8,9 +6,8 @@ const params = new URLSearchParams(window.location.search);
 const customerId = params.get("id");
 
 // -------------------- top actions --------------------
-$("addEventBtn").onclick = () => {
-  window.location.href = `/addEvent/addEvent.html?customerId=${customerId}`;
-};
+$("addEventBtn").onclick = () => openAddEventModal();
+
 $("addActionBtn").onclick = () => openCreateActionModal();
 
 // -------------------- utils --------------------
@@ -267,6 +264,80 @@ $("modalMarkDoneBtn").onclick = () => {
   openDoneModal(selectedActionObj);
 };
 
+// -------------------- ADD EVENT MODAL --------------------
+function toDatetimeLocalValue(date) {
+  const pad = (n) => String(n).padStart(2, "0");
+  const yyyy = date.getFullYear();
+  const mm = pad(date.getMonth() + 1);
+  const dd = pad(date.getDate());
+  const hh = pad(date.getHours());
+  const mi = pad(date.getMinutes());
+  return `${yyyy}-${mm}-${dd}T${hh}:${mi}`;
+}
+
+function openAddEventModal() {
+  const err = $("addEventErr");
+  if (err) {
+    err.style.display = "none";
+    err.textContent = "";
+  }
+
+  $("aeType").value = "ACTIVITY";
+  $("aeNotes").value = "";
+  $("aeOccurredAt").value = toDatetimeLocalValue(new Date()); // default now
+
+  showModal("addEventModal");
+}
+
+function closeAddEventModal() {
+  hideModal("addEventModal");
+}
+
+$("closeAddEventModal").onclick = closeAddEventModal;
+$("cancelAddEventBtn").onclick = closeAddEventModal;
+
+$("addEventModal").addEventListener("click", (e) => {
+  if (e.target.id === "addEventModal") closeAddEventModal();
+});
+
+$("addEventForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const type = $("aeType").value;
+  const occurredAt = $("aeOccurredAt").value; // datetime-local string
+  const notes = $("aeNotes").value.trim();
+
+  const btn = $("submitAddEventBtn");
+  const oldText = btn.textContent;
+  btn.disabled = true;
+  btn.textContent = "Saving...";
+
+  try {
+    if (!occurredAt) throw new Error("Please choose a date/time.");
+
+    await apiFetch(`/customers/${customerId}/events`, {
+      method: "POST",
+      body: JSON.stringify({
+        type,
+        occurredAt,          // keep as-is; backend should parse ISO-like string
+        notes: notes || null
+      }),
+    });
+
+    closeAddEventModal();
+    await loadDetail(); // refresh timeline + chart + drivers
+  } catch (err) {
+    const msg = err?.message || "Failed to add event.";
+    const el = $("addEventErr");
+    el.style.display = "block";
+    el.textContent = msg;
+  } finally {
+    btn.disabled = false;
+    btn.textContent = oldText;
+  }
+});
+
+
 // -------------------- CREATE ACTION MODAL --------------------
 function openCreateActionModal() {
   $("createActionErr").style.display = "none";
@@ -348,6 +419,9 @@ function renderBanner(data) {
 
 function renderSummary(data) {
   const name = safeStr(data.name, "Customer");
+
+  const link = $("custNameLink");
+  if (link) link.href = `/customerDetail/customerProfile/customerProfile.html?id=${customerId}`;
 
   // page header pieces
   $("custName").textContent = name;
@@ -449,7 +523,6 @@ function renderDrivers(data) {
         <div class="driverTitle">📉 ${safeStr(d)}</div>
         <div class="driverDesc">Detected driver impacting customer health</div>
       </div>
-      <div class="impactTag">High Impact</div>
     `;
     wrap.appendChild(div);
   });
@@ -530,7 +603,7 @@ function renderActions(data) {
         <div class="actionTop">
           <div class="actionType">${safeStr(a.type, "Action")}</div>
           <div class="actionBadges">
-            <span class="smallTag">${safeStr(a.status, "To Do")}</span>
+            <span class="smallTag">${String(a.status || "TODO").replaceAll("_"," ")}</span>
           </div>
         </div>
 
@@ -598,7 +671,7 @@ function renderActions(data) {
       <div class="compDivider"></div>
 
       <div class="compOutcomeRow">
-        <span style="font-weight:900;">Outcome:</span>
+        <span>Outcome:</span>
         <span class="${outcomeClass(outcome)}">${safeStr(outcome, "-")}</span>
       </div>
 

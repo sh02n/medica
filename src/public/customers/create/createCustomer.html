@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Create Customer</title>
+  <link rel="stylesheet" href="/shared/main.css">
+  <link rel="stylesheet" href="createCustomer.css">
+</head>
+<body>
+  <main class="appMain">
+    <div class="container createWrap">
+      <section class="pageHead">
+        <h1 id="pageTitle" class="pageTitle">Create New Customer</h1>
+        <p id="pageSub" class="pageSub">Add a new customer to your health monitoring system</p>
+      </section>
+
+      <form id="createCustomerForm" class="stack">
+        <!-- Basic Information -->
+        <section class="card sectionCard">
+          <div class="sectionHead">
+            <div class="sectionIcon" aria-hidden="true">🏢</div>
+            <div>
+              <div class="sectionTitle">Basic Information</div>
+            </div>
+          </div>
+
+          <div class="formGrid2">
+            <label class="field fieldFull">
+              <span class="label">Company Name <span class="req">*</span></span>
+              <input id="custName" placeholder="e.g., Acme Corporation" required />
+            </label>
+
+            <label class="field">
+              <span class="label">Segment <span class="req">*</span></span>
+              <select id="custSegment" required>
+                <option value="SMB">SMB (Small Business)</option>
+                <option value="Mid-Market">Mid-Market</option>
+                <option value="Enterprise">Enterprise</option>
+              </select>
+            </label>
+
+            <label class="field">
+              <span class="label">Account Owner <span class="req">*</span></span>
+              <select id="custOwner" required>
+                <option value="">Select owner...</option>
+              </select>
+            </label>
+
+            <label class="field">
+              <span class="label">Industry</span>
+              <input id="custIndustry" placeholder="e.g., Technology, Healthcare" />
+            </label>
+
+            <label class="field">
+              <span class="label">Company Size</span>
+              <select id="custCompanySize">
+                <option value="">Select size...</option>
+                <option value="1-10">1–10</option>
+                <option value="11-50">11–50</option>
+                <option value="51-200">51–200</option>
+                <option value="201-1000">201–1000</option>
+                <option value="1000+">1000+</option>
+              </select>
+            </label>
+          </div>
+        </section>
+
+        <!-- Contact Information -->
+        <section class="card sectionCard">
+          <div class="sectionHead">
+            <div class="sectionIcon" aria-hidden="true">👤</div>
+            <div class="sectionTitle">Contact Information</div>
+          </div>
+
+          <div class="formGrid2">
+            <label class="field">
+              <span class="label">Email</span>
+              <input id="custEmail" type="email" placeholder="contact@company.com" />
+            </label>
+
+            <label class="field">
+              <span class="label">Phone</span>
+              <input id="custPhone" placeholder="+1 (555) 123-4567" />
+            </label>
+
+            <label class="field">
+              <span class="label">Website</span>
+              <input id="custWebsite" placeholder="https://company.com" />
+            </label>
+
+            <label class="field">
+              <span class="label">Location</span>
+              <input id="custLocation" placeholder="San Francisco, CA" />
+            </label>
+          </div>
+        </section>
+
+        <!-- Account Details -->
+        <section class="card sectionCard">
+          <div class="sectionHead">
+            <div class="sectionIcon" aria-hidden="true">💲</div>
+            <div class="sectionTitle">Account Details</div>
+          </div>
+
+          <div class="formGrid2">
+            <label class="field">
+              <span class="label">Annual Contract Value</span>
+              <input id="custACV" type="number" min="0" step="1" placeholder="50000" />
+            </label>
+
+            <label class="field">
+              <span class="label">Contract Start Date</span>
+              <input id="custContractStart" type="date" />
+            </label>
+
+            <label class="field fieldFull">
+              <span class="label">Contract End Date / Renewal Date</span>
+              <input id="custContractEnd" type="date" />
+            </label>
+          </div>
+        </section>
+
+        <!-- Additional Notes -->
+        <section class="card sectionCard">
+          <div class="sectionHead">
+            <div class="sectionTitle">Additional Notes</div>
+          </div>
+
+          <label class="field fieldFull">
+            <span class="label">Notes</span>
+            <textarea id="custNotes" rows="5" placeholder="Add any additional information about this customer..."></textarea>
+          </label>
+        </section>
+
+        <!-- footer actions -->
+        <section class="footerActions">
+          <div id="formErr" class="formErr" style="display:none;"></div>
+          <div class="btnRow">
+            <button type="button" class="btn" onclick="history.back()">Cancel</button>
+            <button id="submitBtn" type="submit" class="primary">Create Customer</button>
+          </div>
+        </section>
+      </form>
+    </div>
+  </main>
+
+  <script src="/shared/api.js"></script>
+  <script src="/shared/menu.js"></script>
+  <script src="createCustomer.js"></script>
+</body>
+</html>

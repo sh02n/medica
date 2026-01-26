@@ -27,6 +27,7 @@ async function listCustomers({ search, risk, fatigue, segment, ownerId }) {
       segment: c.segment,
       tier: c.tier,
       owner: { id: c.owner.id, name: c.owner.name },
+      ownerId: c.owner.id,
       ...health,
       ...fat,
     };
@@ -64,6 +65,19 @@ async function getCustomerDetail(customerId) {
     segment: c.segment,
     tier: c.tier,
     owner: { id: c.owner.id, name: c.owner.name },
+    ownerId: c.owner.id,
+
+    createdAt: c.createdAt,
+    industry: c.industry,
+    companySize: c.companySize,
+    contactEmail: c.contactEmail,
+    contactPhone: c.contactPhone,
+    website: c.website,
+    location: c.location,
+    annualContractValue: c.annualContractValue,
+    contractStartDate: c.contractStartDate,
+    contractEndDate: c.contractEndDate,
+    notes: c.notes,
     ...health,
     ...fat,
     events: c.events,
@@ -112,4 +126,76 @@ async function getCustomerHealthHistory(customerId, days = 14) {
   return { points, delta, direction };
 }
 
-module.exports = { listCustomers, getCustomerDetail, getCustomerHealthHistory };
+async function createCustomer(payload) {
+  const {
+    name, segment, tier, ownerId,
+    industry, companySize,
+    contactEmail, contactPhone, website, location,
+    annualContractValue, contractStartDate, contractEndDate,
+    notes
+  } = payload;
+
+  return prisma.customer.create({
+    data: {
+      name,
+      segment: segment || "SMB",
+      tier: tier || "Standard",
+      ownerId: Number(ownerId),
+
+      industry: industry || null,
+      companySize: companySize || null,
+
+      contactEmail: contactEmail || null,
+      contactPhone: contactPhone || null,
+      website: website || null,
+      location: location || null,
+
+      annualContractValue: annualContractValue ?? null,
+      contractStartDate: contractStartDate ? new Date(contractStartDate) : null,
+      contractEndDate: contractEndDate ? new Date(contractEndDate) : null,
+
+      notes: notes || null,
+    },
+    include: { owner: true },
+  });
+}
+
+
+async function updateCustomerOwner(customerId, newOwnerId) {
+  return prisma.customer.update({
+    where: { id: Number(customerId) },
+    data: {
+      ownerId: Number(newOwnerId),
+    },
+    include: {
+      owner: true
+    }
+  });
+}
+
+async function updateCustomer(customerId, data) {
+  const patch = { ...data };
+
+  if (patch.ownerId != null) patch.ownerId = Number(patch.ownerId);
+
+  if ("contractStartDate" in patch)
+    patch.contractStartDate = patch.contractStartDate ? new Date(patch.contractStartDate) : null;
+
+  if ("contractEndDate" in patch)
+    patch.contractEndDate = patch.contractEndDate ? new Date(patch.contractEndDate) : null;
+
+  return prisma.customer.update({
+    where: { id: Number(customerId) },
+    data: patch,
+    include: { owner: true }
+  });
+}
+
+module.exports = {
+  listCustomers,
+  getCustomerDetail,
+  getCustomerHealthHistory,
+  createCustomer,
+  updateCustomerOwner,
+  updateCustomer
+};

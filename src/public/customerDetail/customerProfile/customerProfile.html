@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Customer Profile</title>
+  <link rel="stylesheet" href="/shared/main.css">
+  <link rel="stylesheet" href="customerProfile.css">
+</head>
+<body>
+  <main class="appMain">
+    <div class="container">
+
+      <!-- Top header card -->
+      <section class="card profileHero">
+        <div class="heroRow">
+          <div class="heroLeft">
+            <div class="heroLogo" aria-hidden="true">🏢</div>
+            <div class="heroInfo">
+              <div class="heroNameRow">
+                <div class="heroName" id="pName">—</div>
+                <span class="chip" id="pSegment">—</span>
+              </div>
+              <div class="heroSub muted" id="pSince">Customer since —</div>
+            </div>
+          </div>
+
+          <div class="heroRight">
+            <button id="editBtn" class="btn">✎ Edit Profile</button>
+          </div>
+        </div>
+      </section>
+
+      <div class="profileGrid">
+        <!-- LEFT COLUMN -->
+        <div class="leftCol">
+          <section class="card profileCard">
+            <div class="cardTitleRow">
+              <div class="cardTitle">Contact Information</div>
+            </div>
+
+            <div class="infoGrid">
+              <div class="infoItem">
+                <div class="infoIcon">✉️</div>
+                <div>
+                  <div class="infoLabel">Email</div>
+                  <div class="infoValue" id="pEmail">—</div>
+                </div>
+              </div>
+
+              <div class="infoItem">
+                <div class="infoIcon">📞</div>
+                <div>
+                  <div class="infoLabel">Phone</div>
+                  <div class="infoValue" id="pPhone">—</div>
+                </div>
+              </div>
+
+              <div class="infoItem">
+                <div class="infoIcon">🌐</div>
+                <div>
+                  <div class="infoLabel">Website</div>
+                  <div class="infoValue"><a id="pWebsite" href="#" target="_blank" rel="noreferrer">—</a></div>
+                </div>
+              </div>
+
+              <div class="infoItem">
+                <div class="infoIcon">📍</div>
+                <div>
+                  <div class="infoLabel">Location</div>
+                  <div class="infoValue" id="pLocation">—</div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="card profileCard">
+            <div class="cardTitleRow">
+              <div class="cardTitle">Company Information</div>
+            </div>
+
+            <div class="infoGrid">
+              <div class="infoItem">
+                <div class="infoIcon">🏭</div>
+                <div>
+                  <div class="infoLabel">Industry</div>
+                  <div class="infoValue" id="pIndustry">—</div>
+                </div>
+              </div>
+
+              <div class="infoItem">
+                <div class="infoIcon">👥</div>
+                <div>
+                  <div class="infoLabel">Company Size</div>
+                  <div class="infoValue" id="pSize">—</div>
+                </div>
+              </div>
+
+              <div class="infoItem">
+                <div class="infoIcon">🏷️</div>
+                <div>
+                  <div class="infoLabel">Segment</div>
+                  <div class="infoValue" id="pSegmentText">—</div>
+                </div>
+              </div>
+
+              <div class="infoItem">
+                <div class="infoIcon">🗺️</div>
+                <div>
+                  <div class="infoLabel">Region</div>
+                  <div class="infoValue" id="pRegion">—</div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="card profileCard">
+            <div class="cardTitleRow">
+              <div class="cardTitle">Notes</div>
+            </div>
+            <div class="notesBox" id="pNotes">—</div>
+          </section>
+        </div>
+
+        <!-- RIGHT COLUMN -->
+        <div class="rightCol">
+
+          <section class="card sideCard">
+            <div class="cardTitleRow">
+              <div class="cardTitle">Account Owner</div>
+            </div>
+
+            <div class="ownerRow">
+              <div class="avatar" id="ownerAvatar">AA</div>
+              <div class="ownerInfo">
+                <div class="ownerName" id="pOwnerName">—</div>
+                <div class="ownerRole muted" id="pOwnerRole">—</div>
+              </div>
+            </div>
+
+            <!-- <div id="reassignWrap" class="reassignWrap" style="display:none;">
+              <div class="miniLabel">Reassign Owner (CSM/Admin)</div>
+              <div class="reassignRow">
+                <select id="ownerSelect"></select>
+                <button id="saveOwnerBtn" class="primary">Save</button>
+              </div>
+              <div id="ownerErr" class="muted" style="display:none;"></div>
+            </div> -->
+          </section>
+
+          <section class="card sideCard">
+            <div class="cardTitleRow">
+              <div class="cardTitle">Contract Details</div>
+            </div>
+
+            <div class="kv">
+              <div class="k muted">Annual Contract Value</div>
+              <div class="v" id="pACV">—</div>
+            </div>
+
+            <div class="kv">
+              <div class="k muted">Contract Period</div>
+              <div class="v">
+                <div><span class="muted">Start</span> <span id="pStart">—</span></div>
+                <div><span class="muted">End</span> <span id="pEnd">—</span></div>
+              </div>
+            </div>
+
+            <div class="kv">
+              <div class="k muted">Days Until Renewal</div>
+              <div class="v" id="pRenewal">—</div>
+            </div>
+          </section>
+
+          <section class="card sideCard">
+            <div class="cardTitleRow">
+              <div class="cardTitle">Quick Actions</div>
+            </div>
+
+            <div class="quickActions">
+              <button id="goDashboardBtn" class="btn">View Health Dashboard</button>
+              <button id="scheduleBtn" class="btn">Schedule Meeting</button>
+              <button id="emailBtn" class="btn">Send Email</button>
+            </div>
+          </section>
+
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script src="/shared/api.js"></script>
+  <script src="/shared/menu.js"></script>
+  <script src="customerProfile.js"></script>
+</body>
+</html>

@@ -65,6 +65,21 @@ model Customer {
   segment     String   @default("SMB")
   tier        String   @default("Standard")
   ownerId     Int
+
+  industry    String?
+  companySize String?
+
+  contactEmail String?
+  contactPhone String?
+  website      String?
+  location     String?
+
+  annualContractValue Int?
+  contractStartDate   DateTime?
+  contractEndDate     DateTime?
+
+  notes       String?
+
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 

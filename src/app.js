@@ -18,12 +18,14 @@ const eventRouter = require('./routers/event.router');
 const actionRouter = require('./routers/action.router');
 const dashboardRouter = require('./routers/dashboard.router');
 const authRouter = require('./routers/auth.router');
+const userRouter = require('./routers/user.router')
 
 app.use('/auth', authRouter);
 app.use('/customers', customerRouter);     // GET /customers, GET /customers/:id
 app.use('/', eventRouter);                // /customers/:id/events
 app.use('/', actionRouter);               // /customers/:id/actions, PATCH /actions/:id
 app.use('/dashboard', dashboardRouter);   // /dashboard/summary
+app.use("/users", userRouter);
 
 // 404
 app.use((req, res, next) => {

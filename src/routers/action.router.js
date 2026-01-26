@@ -1,4 +1,5 @@
 const express = require('express');
+const prisma = require("../models/prismaClient");
 const router = express.Router();
 const { listActionsByCustomer, createAction, updateAction } = require('../models/Action.model');
 const ActionModel = require("../models/Action.model");
@@ -85,6 +86,28 @@ router.post("/actions/:id/notes", jwtMiddleware.verifyToken, async (req, res, ne
     res.status(201).json(created);
   } catch (err) {
     next(err);
+  }
+});
+
+router.get("/actions/", jwtMiddleware.verifyToken, async (req, res) => {
+  try {
+    const ownerId = Number(req.query.ownerId);
+    const where = {};
+
+    if (Number.isFinite(ownerId) && ownerId > 0) {
+      where.ownerId = ownerId;
+    }
+
+    const actions = await prisma.actionItem.findMany({
+      where,
+      orderBy: { dueDate: "asc" },
+      include: { customer: true, owner: true },
+    });
+
+    res.json(actions);
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ error: "Failed to list actions" });
   }
 });
 

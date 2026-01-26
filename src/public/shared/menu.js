@@ -23,8 +23,8 @@
 
     wireMenu();
     applyRoleVisibility();
-    setActiveLink();
     fillUserMeta();
+    rewriteMyLinks();
     setTopbarTitle();
   }
 
@@ -82,15 +82,44 @@
     document.querySelectorAll(".nav-link").forEach((a) => {
       const href = a.getAttribute("href");
       if (!href) return;
-      if (href.split("?")[0] === path) a.classList.add("active");
+
+      const url = new URL(href, window.location.origin);
+      if (url.pathname === path) a.classList.add("active");
     });
   }
 
-  // function setTopbarTitle() {
-  //   // simple default: use document.title
-  //   const el = document.getElementById("appTopbarTitle");
-  //   if (el) el.textContent = document.title || "Customer Health";
-  // }
+  function setTopbarTitle() {
+    // simple default: use document.title
+    const el = document.getElementById("appTopbarTitle");
+    if (el) el.textContent = "Customer Health";  // document.title 
+  }
+
+  function getMyId() {
+  // support both keys you've used across files
+  const raw =
+    localStorage.getItem("user_id") ??
+    localStorage.getItem("id") ??
+    localStorage.getItem("userId");
+
+  const n = Number(raw);
+  return Number.isFinite(n) ? n : null;
+}
+
+  function rewriteMyLinks() {
+    const myId = getMyId();
+    if (!myId) return;
+
+    document.querySelectorAll('a.nav-link[data-my="customers"]').forEach(a => {
+      const href = a.getAttribute("href") || "";
+      const url = new URL(href, window.location.origin);
+
+      // force ownerId for "my" links
+      url.searchParams.set("ownerId", String(myId));
+
+      a.setAttribute("href", url.pathname + "?" + url.searchParams.toString());
+    });
+  }
+
 
   document.addEventListener("DOMContentLoaded", injectMenu);
 })();

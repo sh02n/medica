@@ -19,6 +19,12 @@ const resetBtn = document.getElementById("resetBtn");
 let didInitFromQuery = false;
 let searchTimer = null;
 
+const addCustomerBtn = document.getElementById("addCustomerBtn");
+
+addCustomerBtn?.addEventListener("click", () => {
+  window.location.href = "/customers/create/createCustomer.html";
+});
+
 /* ========= Helpers ========= */
 function openFilters() {
   if (!panel) return;
@@ -66,23 +72,22 @@ function readQueryToUI() {
 
 function buildParamsFromUIAndURL() {
   const qs = new URLSearchParams(window.location.search);
-  const view = qs.get("view"); // my / all
-  const currentUserId = getCurrentUserId();
+
+  const ownerIdFromUrl = qs.get("ownerId"); // string | null
 
   const search = searchEl?.value?.trim() || "";
   const risk = riskEl?.value || "";
   const fatigue = fatigueEl?.value || "";
   const segment = segmentEl?.value || "";
-  const owner = ownerEl?.value || "";
+
+  const ownerFromUI = ownerEl?.value || "";
 
   const params = new URLSearchParams();
 
-  // enforce "my"
-  if (view === "my" && currentUserId != null) {
-    params.set("ownerId", String(currentUserId));
-  } else if (owner) {
-    // only if you actually support ownerId in backend
-    params.set("ownerId", owner);
+  if (ownerIdFromUrl) {
+    params.set("ownerId", ownerIdFromUrl);
+  } else if (ownerFromUI) {
+    params.set("ownerId", ownerFromUI);
   }
 
   if (search) params.set("search", search);
@@ -90,7 +95,7 @@ function buildParamsFromUIAndURL() {
   if (fatigue) params.set("fatigue", fatigue);
   if (segment) params.set("segment", segment);
 
-  return { params, search, risk, fatigue, segment, owner };
+  return { params, search, risk, fatigue, segment, owner: ownerIdFromUrl || ownerFromUI };
 }
 
 function writeUIToQuery({ search, risk, fatigue, segment, owner }) {

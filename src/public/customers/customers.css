@@ -155,9 +155,7 @@
 
 /* Customer name + segment (stacked) */
 .customerName{
-  font-weight: 500;
-  font-size: 18px;
-  line-height: 1.1;
+  font-weight: bold;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -174,7 +172,6 @@
 
 /* Owner text */
 .ownerText{
-  font-size: 16px;
   color: #0f172a;
   white-space: nowrap;
   overflow: hidden;
@@ -216,7 +213,7 @@
   align-items: center;
   gap: 8px;
   padding: 4px 12px;
-  border-radius: 12px;
+  border-radius: 6px;
   border: 1px solid rgba(226,232,240,.9);
   background: rgba(248,250,252,.9);
   color: #0f172a;

@@ -1,0 +1,67 @@
+.appMain > * {
+  padding-top: 0;
+}
+
+.createWrap{ max-width: 980px; }
+
+.pageHead{ margin-bottom: 10px; }
+.pageTitle{ margin: 0; font-size: 15px;}
+.pageSub{ margin: 6px 0 0; }
+
+.stack{ display:flex; flex-direction:column; gap: 14px; }
+
+.sectionCard{ padding: 16px; }
+.sectionHead{
+  display:flex;
+  align-items:center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.sectionIcon{
+  width: 34px;
+  height: 34px;
+  border-radius: 12px;
+  display:grid;
+  place-items:center;
+  background: rgba(15,118,110,.10);
+  border: 1px solid rgba(15,118,110,.18);
+}
+
+.formGrid2{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.field{ display:flex; flex-direction:column; gap: 6px; }
+.fieldFull{ grid-column: 1 / -1; }
+
+.req{ color: #dc2626; }
+
+textarea{ resize: vertical; }
+
+.footerActions{
+  display:flex;
+  align-items:center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 6px;
+}
+
+.btnRow{ display:flex; gap: 10px; margin-left:auto; }
+
+.formErr{
+  color: #991b1b;
+  background: rgba(220,38,38,.08);
+  border: 1px solid rgba(220,38,38,.20);
+  padding: 10px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+@media (max-width: 820px){
+  .formGrid2{ grid-template-columns: 1fr; }
+  .btnRow{ width:100%; }
+  .btnRow button{ flex: 1; }
+}

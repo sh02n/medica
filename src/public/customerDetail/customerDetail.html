@@ -10,27 +10,24 @@
 
   <main class="appMain">
     <div class="container">
-      <!-- Fatigue banner -->
       <section id="fatigueBanner" class="banner" style="display:none;"></section>
 
-      <!-- CUSTOMER HEADER CARD (like screenshot) -->
       <section class="card customerHero">
         <div class="heroTop">
           <div class="heroLeft">
             <div class="crumbs" id="crumbs">Enterprise • Owner: - • Last Activity: -</div>
-            <div class="heroTitleRow">
-              <div class="heroTitle" id="custName">Customer</div>
-            </div>
+              <a class="heroTitle heroTitleLink" id="custNameLink" href="#">
+                <span id="custName">Customer</span>
+              </a>
           </div>
 
           <div class="heroActions">
             <button id="addEventBtn" class="btn">＋ Add Event</button>
-            <button id="addActionBtn" class="primary">＋ Create Action</button>
+            <button id="addActionBtn" class="primary btn">＋ Create Action</button>
           </div>
         </div>
 
         <div class="heroMetrics">
-          <!-- Health Score -->
           <div class="metric">
             <div class="metricLabel">Health Score</div>
             <div class="healthRow">
@@ -41,19 +38,16 @@
             </div>
           </div>
 
-          <!-- Risk label -->
           <div class="metric">
             <div class="metricLabel">Risk Label</div>
             <div id="riskPill" class="pill pill-ok">-</div>
           </div>
 
-          <!-- Fatigue risk -->
           <div class="metric">
             <div class="metricLabel">Fatigue Risk</div>
             <div id="fatiguePill" class="pill pill-neutral">-</div>
           </div>
 
-          <!-- Active actions -->
           <div class="metric">
             <div class="metricLabel">Active Actions</div>
             <div id="activeActionsCount" class="bigNum">0</div>
@@ -63,16 +57,6 @@
 
       <section class="card">
         <div class="row">
-          <h2 class="sectionTitle">Completed Actions</h2>
-        </div>
-
-        <div id="completedActionsPanel"></div>
-        <div id="completedEmptyCard" class="muted" style="display:none;">No completed actions.</div>
-      </section>
-
-      <!-- Activity in past 7 days -->
-      <section class="card">
-        <div class="row">
           <h2 class="sectionTitle">Activity in Past 7 Days</h2>
         </div>
         <div class="activityChartWrap">
@@ -80,9 +64,7 @@
         </div>
       </section>
 
-      <!-- Bottom grid: left big / right small -->
       <div class="detailGrid">
-        <!-- LEFT -->
         <section class="card leftStack">
           <div class="stackBlock">
             <h2 class="sectionTitle">Top Risk Drivers</h2>
@@ -100,7 +82,6 @@
           </div>
         </section>
 
-        <!-- RIGHT -->
         <section class="card">
           <div class="row">
             <h2 class="sectionTitle">Active Actions</h2>
@@ -108,6 +89,13 @@
 
           <div id="activeActionsPanel"></div>
           <div id="actionsEmptyCard" class="muted" style="display:none;">No active actions.</div>
+
+          <div class="row">
+            <h2 class="sectionTitle">Completed Actions</h2>
+          </div>
+
+          <div id="completedActionsPanel"></div>
+          <div id="completedEmptyCard" class="muted" style="display:none;">No completed actions.</div>
         </section>
       </div>
     </div>
@@ -144,7 +132,6 @@
     </div>
   </div>
 
-  <!-- Action details modal (keep yours) -->
   <div id="actionModal" class="modal" style="display:none;">
     <div class="modal-card">
       <div class="modal-header">
@@ -174,8 +161,6 @@
         </div>
       </div>
 
-  
-
       <div class="modal-footer">
         <button id="modalMarkDoneBtn" class="btn">Mark Done</button>
         <button id="modalCloseBtn" class="btn">Close</button>
@@ -183,7 +168,50 @@
     </div>
   </div>
 
-  <!-- Create Action modal -->
+  <div id="addEventModal" class="modal" style="display:none;">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Add Event</h3>
+        <button id="closeAddEventModal" class="btn" type="button">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <form id="addEventForm" class="formGrid">
+          <div class="field">
+            <label for="aeType">Event Type</label>
+            <select id="aeType" required>
+              <option value="ACTIVITY">ACTIVITY</option>
+              <option value="POSITIVE">POSITIVE</option>
+              <option value="TICKET_OPENED">TICKET_OPENED</option>
+              <option value="TICKET_RESOLVED">TICKET_RESOLVED</option>
+              <option value="COMPLAINT">COMPLAINT</option>
+              <option value="OUTREACH_EMAIL">OUTREACH_EMAIL</option>
+              <option value="OUTREACH_CALL">OUTREACH_CALL</option>
+              <option value="UNSUBSCRIBE">UNSUBSCRIBE</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="aeOccurredAt">Date/Time</label>
+            <input id="aeOccurredAt" type="datetime-local" required />
+          </div>
+
+          <div class="field fieldFull">
+            <label for="aeNotes">Notes</label>
+            <textarea id="aeNotes" rows="3" placeholder="Optional notes..."></textarea>
+          </div>
+
+          <div id="addEventErr" class="muted" style="display:none;"></div>
+
+          <div class="fieldFull row" style="justify-content:flex-end; gap:10px;">
+            <button type="button" id="cancelAddEventBtn" class="btn">Cancel</button>
+            <button type="submit" id="submitAddEventBtn" class="primary btn">Save Event</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
   <div id="createActionModal" class="modal" style="display:none;">
     <div class="modal-card">
       <div class="modal-header">
@@ -210,22 +238,22 @@
           </div>
 
           <div class="field">
-            <label for="caPriority">Priority (1=High, 2=Med, 3=Low)</label>
+            <label for="caPriority">Priority</label>
             <select id="caPriority" required>
-              <option value="1">1</option>
-              <option value="2" selected>2</option>
-              <option value="3">3</option>
+              <option value="1">High</option>
+              <option value="2" selected>Medium</option>
+              <option value="3">Low</option>
             </select>
           </div>
 
           <div class="field fieldFull">
             <label for="caNotes">Notes</label>
-            <textarea id="caNotes" rows="5" placeholder="e.g. Send training resources and schedule onboarding session"></textarea>
+            <textarea id="caNotes" rows="2" placeholder=""></textarea>
           </div>
 
           <div class="fieldFull row" style="justify-content:flex-end;">
             <button type="button" id="cancelCreateActionBtn" class="btn">Cancel</button>
-            <button type="submit" id="submitCreateActionBtn" class="primary">Create</button>
+            <button type="submit" id="submitCreateActionBtn" class="primary btn">Create</button>
           </div>
 
           <div id="createActionErr" class="muted" style="display:none;"></div>

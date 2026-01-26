@@ -7,52 +7,82 @@
   <link rel="stylesheet" href="dashboard.css" />
 </head>
 <body>
-  <main class="container dashboard">
-    <div class="dashTop">
-      <section class="card">
-        <h2>Risk Distribution</h2>
-        <div id="riskDist" class="dist"></div>
-      </section>
+  <main class="container dashboard2">
+    <section class="kpiGrid">
 
-      <section class="card">
-        <h2>Fatigue Distribution</h2>
-        <div id="fatigueDist" class="dist"></div>
-      </section>
-
-      <section class="card">
-        <h2>Top At-Risk Customers</h2>
-        <div id="topAtRiskList" class="rankList"></div>
-      </section>
-    </div>
-
-    <div class="dashMid">
-      <section class="card chartCard">
-        <div class="cardHeaderRow">
-          <h2>Health Trend (Last 14 Days)</h2>
-          <div class="muted" id="trendHint">Overall</div>
+      <div class="card kpi">
+        <div class="kpiTop">
+          <div class="kpiLabel">At Risk Customers</div>
+          <div class="kpiIcon">📉</div>
         </div>
+        <div id="kpiAtRisk" class="kpiValue">-</div>
+        <div id="kpiAtRiskMeta" class="kpiMeta muted">-</div>
+      </div>
 
-        <!-- wrapper so tooltip can position nicely -->
-        <div class="chartWrap">
-          <canvas id="trendChart" width="860" height="260"></canvas>
-          <div id="chartTooltip" class="chartTooltip" style="display:none"></div>
+      <div class="card kpi">
+        <div class="kpiTop">
+          <div class="kpiLabel">Overdue Actions</div>
+          <div class="kpiIcon">⏰</div>
         </div>
-      </section>
+        <div id="kpiOverdue" class="kpiValue">-</div>
+        <div class="kpiMeta muted">Actions overdue</div>
+      </div>
 
-      <section class="card">
-        <h2>Top Risk Drivers</h2>
-        <table class="table">
-          <thead><tr><th>Driver</th><th>Count</th></tr></thead>
-          <tbody id="driversTbody"></tbody>
-        </table>
-      </section>
-    </div>
+      <div class="card kpi">
+        <div class="kpiTop">
+          <div class="kpiLabel">High Fatigue Risk</div>
+          <div class="kpiIcon">💬</div>
+        </div>
+        <div id="kpiHighFatigue" class="kpiValue">-</div>
+        <div class="kpiMeta muted">Customers at risk of over-messaging</div>
+      </div>
+    </section>
+
+    <section class="midGrid">
+      <div class="stack">
+        <section class="card">
+          <h3>Risk Distribution</h3>
+          <div id="riskDist" class="progressList"></div>
+        </section>
+
+        <section class="card">
+          <h3>Top Risk Drivers</h3>
+          <div id="driversList" class="simpleList"></div>
+        </section>
+      </div>
+
+      <div class="stack">
+        <section class="card">
+          <h3>Action Status</h3>
+          <div id="actionStatusList" class="statusList"></div>
+        </section>
+
+        <section class="card">
+          <h3>Action Effectiveness</h3>
+          <div id="effectivenessList" class="effectList"></div>
+        </section>
+      </div>
+    </section>
 
     <section class="card">
-      <h2>Overdue Actions</h2>
+      <h3>Customers Needing Attention Today</h3>
+      <div id="attentionTodayText" class="muted"></div>
+      <div id="attentionTodayList" class="simpleList"></div>
+    </section>
+
+    <section class="card">
+      <h3>Team Workload</h3>
       <table class="table">
-        <thead><tr><th>Customer</th><th>Owner</th><th>Type</th><th>Due</th><th>Status</th></tr></thead>
-        <tbody id="overdueTbody"></tbody>
+        <thead>
+          <tr>
+            <th>Owner</th>
+            <th>Customers</th>
+            <th>At Risk</th>
+            <th>Active Actions</th>
+            <th>Overdue</th>
+          </tr>
+        </thead>
+        <tbody id="workloadTbody"></tbody>
       </table>
     </section>
   </main>

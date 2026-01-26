@@ -26,28 +26,29 @@
 
   <nav class="nav">
     <div class="nav-section">
-      <div class="nav-title">CURRENT TRENDS</div>
+      <div class="nav-title">Current Trends</div>
       <a class="nav-link" href="/dashboard/dashboard.html" data-role="CSM">Trends Overview</a>
-      <a class="nav-link" href="/dashboard/dashboard.html#overdue" data-role="CSM">Overdue Actions</a>
+      <!-- <a class="nav-link" href="/dashboard/dashboard.html#overdue" data-role="CSM">Overdue Actions</a> -->
       <a class="nav-link" href="/customers/customers.html" data-role="CSA">My Trends (Coming Soon)</a>
     </div>
 
     <div class="nav-section">
-      <div class="nav-title">MY WORK</div>
-      <a class="nav-link" href="/customers/customers.html?view=my">My Customers</a>
-      <a class="nav-link" href="/customers/customers.html?view=my&risk=At-Risk">My At-Risk</a>
-      <a class="nav-link" href="/customers/customers.html?view=my&fatigue=High">High Fatigue</a>
-      <a class="nav-link" href="/customers/customers.html?view=my&actions=overdue">My Overdue Actions</a>
+      <div class="nav-title">My Work</div>
+      <a class="nav-link" href="/customers/customers.html" data-my="customers">My Customers</a>
+      <a class="nav-link" href="/customers/customers.html?risk=At-Risk" data-my="customers">My At-Risk</a>
+      <a class="nav-link" href="/customers/customers.html?fatigue=High" data-my="customers">High Fatigue</a>
+      <!-- <a class="nav-link" href="/customers/customers.html?view=my&actions=overdue">My Overdue Actions</a> -->
     </div>
 
     <div class="nav-section" data-role="CSM">
-      <div class="nav-title">TEAM / GLOBAL</div>
+      <div class="nav-title">Team</div>
       <a class="nav-link" href="/customers/customers.html?view=all">All Customers</a>
-      <a class="nav-link" href="/customers/customers.html?view=all&actions=overdue">Team Overdue Actions</a>
+      <!-- <a class="nav-link" href="/customers/customers.html?view=all&actions=overdue">Team Overdue Actions</a> -->
     </div>
 
     <div class="nav-section">
-      <div class="nav-title">ACCOUNT</div>
+      <div class="nav-title">Account</div>
+      <a class="nav-link" href="/profile/profile.html">View Profile</a>
       <a class="nav-link" href="#" id="sidebarLogoutLink">Logout</a>
     </div>
   </nav>

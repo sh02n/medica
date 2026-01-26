@@ -7,45 +7,135 @@
   <link rel="stylesheet" href="profile.css" />
 </head>
 <body>
-  <main class="container">
-    <section class="card profileHeader">
-      <div>
-        <div class="profileName" id="profileName">—</div>
-        <div class="muted" id="profileMeta">—</div>
+  <main class="container profilePage">
+
+    <!-- Top profile card -->
+    <section class="card profileTop">
+      <div class="profileLeft">
+        <div class="avatar" id="avatar">SJ</div>
+
+        <div class="profileInfo">
+          <div class="profileNameRow">
+            <div class="profileName" id="profileName">—</div>
+          </div>
+
+          <div class="profileBadges">
+            <span class="rolePill" id="rolePill">—</span>
+            <span class="muted">•</span>
+            <span class="muted" id="teamText">Enterprise Team</span>
+          </div>
+
+          <div class="profileMetaRow muted">
+            <span class="metaItem">✉️ <span id="profileEmail">—</span></span>
+            <span class="metaDot">•</span>
+            <span class="metaItem">📅 Joined <span id="joinedDate">—</span></span>
+          </div>
+        </div>
       </div>
 
-      <div class="profileActions">
-        <button class="btn" id="goCustomersBtn">My Customers</button>
+      <div class="profileRight">
+        <button class="btn" id="editProfileBtn">Edit Profile</button>
         <button class="primary" id="logoutBtn">Logout</button>
       </div>
-    </section>
 
-    <section class="card">
-      <h2>Work Summary</h2>
-      <div class="grid" id="summaryGrid"></div>
-      <p class="muted" id="summaryHint" style="margin-top:10px;">Loaded from live data.</p>
-    </section>
-
-    <section class="card">
-      <h2>Permissions</h2>
-      <ul id="permList" class="permList"></ul>
-    </section>
-
-    <section class="card">
-      <h2>Session</h2>
-      <div class="row">
-        <div>
-          <div class="muted">Auto logout after 30 minutes of inactivity</div>
-          <div class="sessionTimer" id="sessionTimer">—</div>
+      <!-- KPI row inside card -->
+      <div class="profileKpis">
+        <div class="kpiBlock">
+          <div class="kpiLabel muted">My Customers</div>
+          <div class="kpiValue" id="kpiMyCustomers">—</div>
         </div>
-        <button class="btn" id="refreshSessionBtn">Refresh Session</button>
+
+        <div class="kpiBlock">
+          <div class="kpiLabel muted">At-Risk</div>
+          <div class="kpiValue danger" id="kpiAtRisk">—</div>
+        </div>
+
+        <div class="kpiBlock">
+          <div class="kpiLabel muted">Avg Health Score</div>
+          <div class="kpiValue" id="kpiAvgHealth">—</div>
+        </div>
+
+        <div class="kpiBlock">
+          <div class="kpiLabel muted">Success Rate</div>
+          <div class="kpiValue success" id="kpiSuccessRate">—</div>
+        </div>
       </div>
     </section>
+
+    <!-- Overview blocks -->
+    <section class="card">
+      <h2 class="sectionTitle">My Customer Portfolio</h2>
+
+      <div class="threeCards">
+        <div class="miniCard">
+          <div class="miniTop">
+            <div class="miniLabel">Healthy</div>
+            <div class="miniIcon ok">✓</div>
+          </div>
+          <div class="miniValue" id="portfolioHealthy">—</div>
+          <div class="miniMeta muted" id="portfolioHealthyMeta">—</div>
+        </div>
+
+        <div class="miniCard">
+          <div class="miniTop">
+            <div class="miniLabel">Watch</div>
+            <div class="miniIcon warn">!</div>
+          </div>
+          <div class="miniValue" id="portfolioWatch">—</div>
+          <div class="miniMeta muted" id="portfolioWatchMeta">—</div>
+        </div>
+
+        <div class="miniCard">
+          <div class="miniTop">
+            <div class="miniLabel">At-Risk</div>
+            <div class="miniIcon bad">!</div>
+          </div>
+          <div class="miniValue" id="portfolioAtRisk">—</div>
+          <div class="miniMeta muted">Needs immediate attention</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 class="sectionTitle">My Actions</h2>
+
+      <div class="threeCards">
+        <div class="miniCard">
+          <div class="miniTop">
+            <div class="miniLabel">Active Actions</div>
+            <div class="miniIcon neutral">⏳</div>
+          </div>
+          <div class="miniValue" id="actionsActive">—</div>
+        </div>
+
+        <div class="miniCard">
+          <div class="miniTop">
+            <div class="miniLabel">Completed</div>
+            <div class="miniIcon ok">✓</div>
+          </div>
+          <div class="miniValue" id="actionsDone">—</div>
+        </div>
+
+        <div class="miniCard">
+          <div class="miniTop">
+            <div class="miniLabel">Overdue</div>
+            <div class="miniIcon bad">!</div>
+          </div>
+          <div class="miniValue danger" id="actionsOverdue">—</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Optional: quick links -->
+    <section class="card profileLinks">
+      <button class="btn" id="goCustomersBtn">My Customers</button>
+      <button class="btn" id="goDashboardBtn">Manager Dashboard</button>
+    </section>
+
   </main>
 
   <script src="/shared/api.js"></script>
   <script src="/shared/menu.js"></script>
-  <script src="/shared/session.js"></script>
   <script src="profile.js"></script>
 </body>
 </html>
